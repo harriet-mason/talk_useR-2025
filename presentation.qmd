@@ -1,5 +1,5 @@
 ---
-title: "Uncertainty Visualisation for Signal Suppression"
+title: "Visualising Uncertainty with ggdibbler"
 subtitle: "Pre-submission Milestone"
 author: "Harriet Mason"
 bibliography: references.bib
@@ -30,43 +30,6 @@ options(digits=3,
         repr.plot.width=15,
         repr.plot.height=8)
 ```
-
-# Talk (& Thesis) Overview
-
-## This talk
-- Thesis summary
-  - Chapter 1: Literature review
-  - Chapter 2: Software
-  - Chapter 3: Visualisation Experiment
-- Timeline
-
-## Thesis Overview & Progress {.smaller}
-- Chapter 1: The Noisy Work of Uncertainty Visualisation
-  - Review existing visualisation approaches
-  - What is signal suppression? How do we do it well?
-  - Status:
-    - Finished and submitted to the journal *Annual Reviews of Statistics and It's Applications* 
-    - Now an invited contribution to Volume 14 of the Journal.
-
-- Chapter 2: `ggdibbler` package 
-  - `ggplot2` extension
-  - Status:
-    - Package has been submitted to CRAN
-    - Currently working on paper
-
-## Thesis Overview & Progress {.smaller}
-
-- Chapter 3: Visualisation experiment
-  - Evaluate plots based on ability to do signal suppression
-  - Based on Australian Energy Market Operator (AEMO) case study
-  -   They fund my scholarship
-  - Status:
-    - I hope someone at AEMO answers my emails
-
-
-
-# Chapter 1: <br> The Noisy Work of Uncertainty Visualisation
-
 
 ## An example I made up for this talk
 :::: {.columns}
@@ -362,17 +325,9 @@ ggplot(toy_temp_mean) +
 
 ::::
 
-## Chapter 1: Summary {.smaller}
-- We should plot uncertainty with "signal suppression” in mind
-- Want to visually interfere so that the trend is hard to see when the data is noisy, but easy to see then the error is low.
-- Not all methods are equal
-  - Sample works pretty well
-  - VSUP also has some potential if we can work out some perception rules
-- Can only properly compare visualisations with an experiment
 
-# Chapter 2: `ggdibbler`
 
-## A fun insight into the previous chapter...
+## A fun insight ...
 :::: {.columns}
 
 ::: {.column width="30%"}
@@ -624,15 +579,13 @@ ggplot(toy_temp_dist) +
 - Integrate `dibble` object so that `geom_sf()` automatically does `geom_sf_sample()` if you pass a distribution in
 
 
-# Chapter 3: <br> Visualisation Experiment
-
-## Where are we?
+## General future plans
 - Now that the graphics are easy to make, test if they work
 - Our method thus far
   - Looking at a graphic and going "neat" 
   - Not exactly rigorous science
-
-## Common Plot Evaluation Methods
+  
+### Common Plot Evaluation Methods
 - Confidence
   - What is the mean of this variable? How certain are you?
   - Errors conflated with poor plot design
@@ -641,56 +594,15 @@ ggplot(toy_temp_dist) +
   - What is the standard error of this estimate?
   - Can't directly ask about error in visualisation experiments
 
-## Issues with testing Signal Suppression
+### Issues with testing Signal Suppression
 - Unlike in purely mathematical statistics, the "estimate" is not set beforehand
 - You can extract multiple statistics from a single visualisation
 - The "estimate" becomes whichever statistic you ask about
-
-## Issues with testing Signal Suppression
-:::: {.columns}
-
-::: {.column width="50%"}
-![](images/img26.jpeg)
-:::
-
-::: {.column width="50%"}
 - Then "uncertainty visualisation" experiments will follow the same results as "normal" visualisation experiments
   - Perceptual hierarchy, gestalt principles, etc.
-
-:::
-
-::::
-
-
-
-
-## Issues with testing Signal Suppression
 - Need to develop methods that allow you to measure the effect of noise without directly asking about it
 
-## AEMO case study
-- Ideally, this experiment would be built around an issue faced by AEMO
-- Currently in talking with their research partnerships lead
-  - Fingers crossed I am not ghosted.
 
-## Chapter 3: Summary
-- Signal Suppression requires new evaluation methods
-- Have not started this chapter
-  - I'll do it if time permits.
-
-# Timeline
-## Timeline {.smaller}
-|Date|Description|
-|:-|:---|
-|July 2025| Submit `ggdibbler` to CRAN. Pre-submission milestone. Work on `ggdibbler` paper. |
-|August 2025| Present `ggdibbler` at useR! 2025 and receive feedback. Finish the `ggdibbler` paper and submit to the Journal of Statistical Software. Decide on a case study for the experiment in consultation with an AEMO research representative. |
-|September 2025| Develop Shiny app, conduct pilot testing, revise design, and begin data collection for experiment.|
-
-## Timeline {.smaller}
-|Date|Description|
-|:-|:---|
-|October 2025|	Write paper for the evaluation experiment. |
-|November 2025 | Finalise and submit evaluation experiment paper. Compile all three papers into the thesis and write the introduction and conclusion. |
-|December 2025 |	Present final versions of `ggdibbler` and evaluation experiment at ASC. Submit thesis. |
 
 # End
 
