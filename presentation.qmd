@@ -1,0 +1,736 @@
+---
+title: "Uncertainty Visualisation for Signal Suppression"
+subtitle: "Pre-submission Milestone"
+author: "Harriet Mason"
+bibliography: references.bib
+institute: "Supervisors: Di Cook, Sarah Goodwin, Susan Vanderplus"
+format: 
+  revealjs: 
+    theme: simple
+    slide-number: true
+editor_options: 
+  chunk_output_type: console
+title-slide-attributes:
+  data-background-image: /images/img1b.jpeg
+  data-background-size: contain
+  data-background-opacity: "0.5"
+  smaller: true
+---
+
+```{r}
+#| label: setup
+#| include: false
+library(tidyverse)
+library(ggdibbler)
+library(gt)
+library(distributional)
+library(cowplot)
+library(gridExtra)
+options(digits=3, 
+        repr.plot.width=15,
+        repr.plot.height=8)
+```
+
+# Talk (& Thesis) Overview
+
+## This talk
+- Thesis summary
+  - Chapter 1: Literature review
+  - Chapter 2: Software
+  - Chapter 3: Visualisation Experiment
+- Timeline
+
+## Thesis Overview & Progress {.smaller}
+- Chapter 1: The Noisy Work of Uncertainty Visualisation
+  - Review existing visualisation approaches
+  - What is signal suppression? How do we do it well?
+  - Status:
+    - Finished and submitted to the journal *Annual Reviews of Statistics and It's Applications* 
+    - Now an invited contribution to Volume 14 of the Journal.
+
+- Chapter 2: `ggdibbler` package 
+  - `ggplot2` extension
+  - Status:
+    - Package has been submitted to CRAN
+    - Currently working on paper
+
+## Thesis Overview & Progress {.smaller}
+
+- Chapter 3: Visualisation experiment
+  - Evaluate plots based on ability to do signal suppression
+  - Based on Australian Energy Market Operator (AEMO) case study
+  -   They fund my scholarship
+  - Status:
+    - I hope someone at AEMO answers my emails
+
+
+
+# Chapter 1: <br> The Noisy Work of Uncertainty Visualisation
+
+
+## An example I made up for this talk
+:::: {.columns}
+
+::: {.column width="40%"}
+![](images/img0.jpg)
+:::
+
+::: {.column width="60%"}
+- Reports that average temperatures in Iowa are very odd!
+- Stumping climate scientists who are looking at it!!
+- Need to understand this weird temperature issue!!!
+
+:::
+
+::::
+
+## An example I made up for this talk
+*(aside)*
+
+- We are going to look at variations of one plot
+  - The choropleth map
+- It makes the ideas we are talking about easier to understand
+- Concepts are more broadly appliciable than this one plot
+
+## Temperatures in Iowa
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+toy_temp |>
+  as_tibble() |>
+  select(scientistID, county_name,recorded_temp) |>
+  head(10) |>
+  gt()|>
+  tab_header(title = "Citizen Scientist Temperature Collection",
+             subtitle = "Data from Iowa Counties") |>
+  cols_label( 
+    scientistID = "Scientist ID", 
+    county_name = "County Name", 
+    recorded_temp = "Recorded Temp")
+```
+:::
+
+::: {.column width="50%"}
+
+- Maintain privacy because doing science in Iowa is now a crime.
+
+:::
+
+::::
+
+
+## Calculating Estimates
+:::: {.columns}
+
+::: {.column width="50%"}
+```{r}
+# Mean data
+toy_temp_mean <- toy_temp |> 
+  group_by(county_name) |>
+  summarise(temp_mean = mean(recorded_temp)) 
+
+toy_temp_mean |> 
+  as_tibble() |>
+  select(county_name, temp_mean) |>
+  head(10) |>
+  gt()|>
+  tab_header(title = "Average Temperature",
+             subtitle = "Estimates for Iowa Counties") |>
+  cols_label(
+    county_name = "County Name", 
+    temp_mean = "Mean Temperature")
+```
+:::
+
+::: {.column width="50%"}
+- Can you see the weird temperature trend?
+:::
+
+::::
+
+
+## Choropleth Map
+```{r}
+p_choro <- ggplot(toy_temp_mean) +
+  geom_sf(aes(geometry=county_geometry, fill=temp_mean)) +
+  theme_minimal() +
+  scale_fill_distiller(palette = "YlOrRd", direction= 1) +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  labs(fill = "Temperature") +
+  ggtitle("Choropleth Map")
+p_choro
+```
+
+## Why communicate with a visualisation?
+
+- "Ah I see"
+- Utilises lizard brain
+- Conveys a large amount of information at once
+
+
+```{r}
+#| fig-align: center
+p_choro
+```
+
+## Fine if we are communicating with...
+![](images/img3.jpg)
+
+## Harder if we are communicating with...
+![](images/img4.jpeg)
+
+## Oh no, a hurdle
+
+![](images/img5.jpeg)
+
+
+## Turns out mum is kind of right....
+:::: {.columns}
+
+::: {.column width="60%"}
+- We find out some citizen scientists are using some pretty old tools
+- The standard error **could** be our estimate....
+  - or it could be about three times that.
+- Does the spatial trend still exist in the high variance case?
+:::
+
+::: {.column width="40%"}
+![](images/img6.jpeg)
+:::
+
+::::
+
+## Spot the difference
+```{r}
+# same plot twice lol
+p1 <- p_choro + ggtitle("Low Variance")
+p2 <- p_choro + ggtitle("High Variance")
+grid.arrange(p1, p2, nrow = 1)
+```
+
+## We Need to Include Uncertainty
+:::: {.columns}
+
+::: {.column width="70%"}
+- Failing to include uncertainty can be akin to fraud or lying
+  - Transparency increases trust
+  - Prevents bad actors from exploiting hidden variance
+- Promotes better decisions
+
+:::
+
+::: {.column width="30%"}
+![](images/img7.jpeg)
+:::
+
+::::
+
+## We are also communicating with...
+
+![](images/img8.jpeg)
+
+## How do we please my mother??? <br> (and also me)
+```{r}
+#| include: false
+ggplot(toy_temp_mean) +
+  geom_sf(aes(geometry=county_geometry), fill="white") +
+  theme_minimal() +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  labs(fill = "Temperature")
+```
+
+![](images/img2.jpeg)
+
+
+## Uncertainty visualisation should...
+:::: {.columns}
+
+::: {.column width="30%"}
+![](images/img9.jpeg)
+:::
+
+::: {.column width="70%"}
+
+<br>
+
+1) Reinforce justified signals
+  - We want my mum to trust the results
+
+
+2) Hide signals that are just noise
+  - I don’t want to see something that isn’t there
+
+:::
+
+::::
+
+## Solution: add an axis for uncertainty
+![](images/img10.jpeg)
+
+## Does this work? Not really {.smaller}
+:::: {.columns}
+
+::: {.column width="30%"}
+![](images/img11.jpeg)
+:::
+
+::: {.column width="70%"}
+
+- Pro
+  - Included uncertainty and increased transparency
+- Cons
+  - High uncertainty signal still very visible so I am still getting scammed
+    - Also sometimes creates false signals
+  - People can (and do) ignore the uncertainty
+  - 2D palette is harder to read
+    - Colour hues are not a simple 2D space
+  - Using saturation hurts accessibility
+
+:::
+::::
+
+## Why doesn't this work? 
+- Uncertainty is not just another variable…
+  - We do not have a high-dimension visualisation or basic heuristic problem
+
+- Two dimensions = No interference
+  - Normal visualization = GOOD!
+  - Uncertainty visualization = BAD! 
+
+## Signal suppression 
+
+![](images/img12.jpeg){fig-align="center"}
+
+- Visualising uncertainty as noise.
+- The error (noise) *should* interfere with our reading of the temperature (signal)
+- But *only* when the signal has high error
+
+
+## Solution: blend the colours together!
+![](images/img13.jpeg)
+
+## Does this work? Kind of... {.smaller}
+:::: {.columns}
+
+::: {.column width="20%"}
+![](images/img15.jpeg)
+:::
+
+::: {.column width="70%"}
+- Pros
+  - Included uncertainty
+  - High uncertainty map has no visible trend 
+  - Uncertainty hard to ignore
+- Cons
+  - Still have 2D Colour palette 
+    - Saturation hurts accessibility
+  - Standard error at which to blend colours is made up
+    - Impossible to align with hypothesis testing
+ 
+ 
+:::
+
+::::
+
+## Solution: simulate a sample
+
+![](images/img14.jpeg)
+
+## Does this work? Almost! {.smaller}
+:::: {.columns}
+
+::: {.column width="25%"}
+![](images/img16.jpeg)
+:::
+
+::: {.column width="70%"}
+- Pros
+  - Included uncertainty 
+  - High uncertainty map has harder to read trend 
+  - Uncertainty hard to ignore
+  - 1D colour palette 
+    - No more weird colour space
+    - More accessible
+
+- Cons
+  - Nightmare to make
+
+:::
+
+::::
+
+## Chapter 1: Summary {.smaller}
+- We should plot uncertainty with "signal suppression” in mind
+- Want to visually interfere so that the trend is hard to see when the data is noisy, but easy to see then the error is low.
+- Not all methods are equal
+  - Sample works pretty well
+  - VSUP also has some potential if we can work out some perception rules
+- Can only properly compare visualisations with an experiment
+
+# Chapter 2: `ggdibbler`
+
+## A fun insight into the previous chapter...
+:::: {.columns}
+
+::: {.column width="30%"}
+![](images/img17.jpeg)
+:::
+
+::: {.column width="70%"}
+- Every single plot was a complete nightmare to make
+  - I suffered immensely making them
+  - I *would* wish this fate onto my worst enemy 
+    - I am just a spiteful person
+  
+:::
+
+::::
+
+
+## What exists - bivariate palettes {.smaller}
+- `biscale` 
+  - Very basic inbuilt colour scales
+  - Anything else requires you to manually design the palette
+  - Make every component separately then combine
+- `Vizumap` 
+  - similar issues to `biscale`
+
+
+## Ideal bivariate palette code
+- Would like to control hue, saturation, and colour value separately
+- Touch as few `ggplot` settings as possible
+
+```{r}
+#| eval: false
+#| echo: true
+# Psudo Code
+ggplot(data) |>
+  geom_sf(aes(geometry = geometries,
+              fill_hue = mean, 
+              fill_saturation = standard_error))
+```
+
+## For example: `biscale` code
+```{r}
+# set large variance multiplier
+m <- 3
+toy_temp_est <- toy_temp |> 
+  group_by(county_name) |>
+  summarise(temp_mean = mean(recorded_temp),
+            temp_se_low = sd(recorded_temp)/sqrt(n()),
+            temp_se_high = 2*temp_se_low) 
+```
+
+```{r}
+#| echo: true
+# Bivar (default plot)
+library(biscale)
+
+# Run it through a function that messes with your data
+data <- bi_class(toy_temp_est, 
+                 x = temp_mean, 
+                 y = temp_se_low, 
+                 style = "quantile", 
+                 dim = 3)
+
+# Manually make legend
+legend <- bi_legend(pal = "PurpleOr",
+                    dim = 3,
+                    xlab = "Temperature",
+                    ylab = "Standard Error",
+                    size = 8)
+
+# Make plot
+plot <- data |>
+  ggplot() +
+  geom_sf(aes(fill = bi_class), color = "white", size = 0.1,
+          # Need to turn off legend of actual plot
+          show.legend = FALSE) +
+  bi_scale_fill(pal = "PurpleOr", dim = 3) +
+  labs(
+    title = "Trying to make the bivar palette",
+    subtitle = "a sorry attempt"
+  ) +
+  bi_theme()
+
+# Combine plot and legend using cowplot
+finalPlot <- ggdraw() +
+  draw_plot(map, 0, 0, 1, 1) +
+  draw_plot(legend, 0.2, .65, 0.2, 0.2)
+```
+
+## For example: `biscale` plot
+- I couldn't even get it to work. This is the plot generated:
+
+```{r}
+finalPlot
+```
+
+- Package hasn't been updated in 3 years.
+
+## What exists - VSUP
+- Nothing for VSUP specifically
+  - Would need to manually create one using a bivariate palette
+  
+  
+## What exists - pixelation map {.smaller}
+
+- `Vizumap` is a sample map option
+  - Makes:
+    - Bivariate maps and Pixel (sample) maps
+    - Also glyph maps
+  - Package is designed specifically for uncertainty
+  - Issues
+    - `ggplot2` flexibility is lost
+      - e.g. you can only use one of three specific palettes
+    - *Very* computationally expensive
+      - A simple map can take over a minute to run
+    - Again, need to make every component separately then combine
+
+## Ideal pixelation map code
+- the `ggplot` recognises the random variable input, and changes the visualisation accordingly
+- Again, touch as few `ggplot` settings as possible
+
+```{r}
+#| eval: false
+#| echo: true
+# Psudo Code
+ggplot(data) |>
+  geom_sf(aes(geometry = geometries,
+              fill = random_variable)) 
+```
+
+## `Vizumap` code
+```{r}
+#| eval: false
+#| echo: true
+
+# load the package
+library(Vizumap)
+library(sf)
+sf_use_s2(FALSE)
+
+# Step 1: Format data using bespoke data formatting function
+data <- read.uv(data = original_data, 
+                estimate = "mean", 
+                error = "standard_error")
+
+# Step 2: Pixelate the shapefile
+pixelation <- pixelate(geoData = geometry_data, 
+                       id = "ID", 
+                       pixelSize = 100)
+
+
+# Step 3: Build pixel map
+pixel_map <- build_pmap(data = data, 
+                         distribution = "normal", 
+                         pixelGeo = pixelation, 
+                         id = "ID", 
+                         # You can only use a set palette
+                         palette = "Oranges"
+                         border = geometry_data)
+
+# Step 4: Print pixel map
+view(pixel_map)
+```
+
+
+## Why is integrating uncertainty hard?
+- `ggplot2` was built on the grammar of graphics
+- Built to take in data, not distributions.
+
+![](images/img20.jpeg)
+
+## The grammar of graphics
+![](images/img18.jpeg)
+
+
+## `ggdibbler`
+  
+![](images/img24.png){width=50%, fig-align="center"}
+
+## `distributional` input
+:::: {.columns}
+
+::: {.column width="40%"}
+
+```{r}
+toy_temp_dist |> 
+  as_tibble() |>
+  select(county_name, temp_dist) |>
+  head(10) |>
+  gt() |>
+  tab_header(title = "Average Temperature",
+             subtitle = "Estimates for Iowa Counties") |>
+  cols_label(county_name = "County Name", 
+             temp_dist = "Temperature")
+```
+:::
+
+::: {.column width="60%"}
+- `distributional` lets you store distributions in a `tibble`
+- Riding those coat tails all the way to a CRAN submission
+:::
+
+::::
+
+
+## `ggdibbler` vs `ggplot2`
+![](images/img25.jpeg){fig-align="center"}
+
+## `ggdibbler` approach
+![](images/img23.jpeg){width=90%, fig-align="center"}
+
+## `ggdibbler` Example
+
+```{r}
+#| echo: true
+#| fig-align: center 
+
+library(ggdibbler)
+toy_temp_dist |> 
+  ggplot() + 
+  geom_sf_sample(aes(geometry = county_geometry,
+                     fill=temp_dist))
+```
+
+## Wow, look at that software go
+
+```{r}
+#| echo: true
+#| fig-align: center 
+ggplot(toy_temp_dist) +
+  geom_sf_sample(aes(geometry=county_geometry, fill=temp_dist),  linewidth=0, n=4) +
+  geom_sf(aes(geometry = county_geometry), fill=NA, linewidth=0.5, colour="white") +
+  theme_minimal() +
+  scale_fill_distiller(palette = "YlOrRd", direction= 1) +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  labs(fill = "Temperature") +
+  ggtitle("A super cool and customised plot")
+
+```
+
+
+## `ggdibbler` Future Plans {.smaller}
+- Might implement VSUP into the package
+  - I half did it and then gave up
+  - `ggplot2` was *not* designed for accessing colour space directly
+- Implement `ggdibbler` variations of other `geom_*()` functions
+  - e.g. `geom_point()`, `geom_distribution()`, etc.
+- Integrate `dibble` object so that `geom_sf()` automatically does `geom_sf_sample()` if you pass a distribution in
+
+
+# Chapter 3: <br> Visualisation Experiment
+
+## Where are we?
+- Now that the graphics are easy to make, test if they work
+- Our method thus far
+  - Looking at a graphic and going "neat" 
+  - Not exactly rigorous science
+
+## Common Plot Evaluation Methods
+- Confidence
+  - What is the mean of this variable? How certain are you?
+  - Errors conflated with poor plot design
+
+- Value extraction
+  - What is the standard error of this estimate?
+  - Can't directly ask about error in visualisation experiments
+
+## Issues with testing Signal Suppression
+- Unlike in purely mathematical statistics, the "estimate" is not set beforehand
+- You can extract multiple statistics from a single visualisation
+- The "estimate" becomes whichever statistic you ask about
+
+## Issues with testing Signal Suppression
+:::: {.columns}
+
+::: {.column width="50%"}
+![](images/img26.jpeg)
+:::
+
+::: {.column width="50%"}
+- Then "uncertainty visualisation" experiments will follow the same results as "normal" visualisation experiments
+  - Perceptual hierarchy, gestalt principles, etc.
+
+:::
+
+::::
+
+
+
+
+## Issues with testing Signal Suppression
+- Need to develop methods that allow you to measure the effect of noise without directly asking about it
+
+## AEMO case study
+- Ideally, this experiment would be built around an issue faced by AEMO
+- Currently in talking with their research partnerships lead
+  - Fingers crossed I am not ghosted.
+
+## Chapter 3: Summary
+- Signal Suppression requires new evaluation methods
+- Have not started this chapter
+  - I'll do it if time permits.
+
+# Timeline
+## Timeline {.smaller}
+|Date|Description|
+|:-|:---|
+|July 2025| Submit `ggdibbler` to CRAN. Pre-submission milestone. Work on `ggdibbler` paper. |
+|August 2025| Present `ggdibbler` at useR! 2025 and receive feedback. Finish the `ggdibbler` paper and submit to the Journal of Statistical Software. Decide on a case study for the experiment in consultation with an AEMO research representative. |
+|September 2025| Develop Shiny app, conduct pilot testing, revise design, and begin data collection for experiment.|
+
+## Timeline {.smaller}
+|Date|Description|
+|:-|:---|
+|October 2025|	Write paper for the evaluation experiment. |
+|November 2025 | Finalise and submit evaluation experiment paper. Compile all three papers into the thesis and write the introduction and conclusion. |
+|December 2025 |	Present final versions of `ggdibbler` and evaluation experiment at ASC. Submit thesis. |
+
+# End
+
+# Appendix
+
+## Other Cases
+- Visualisations where values are actually estimates
+  - e.g. Statistical summaries
+  - e.g. Using data from ABS (or other government organisation)
+
+
+## `ggdist`
+![](images/img22.jpeg)
+
+
+## Looking at the data
+```{r}
+ggplot(toy_temp) +
+  geom_sf(aes(geometry=county_geometry), fill="white") +
+  geom_jitter(aes(x=county_longitude, y=county_latitude, colour=recorded_temp, alpha=0.5), 
+              width=5000, height =5000, alpha=0.7) +
+  theme_minimal() +
+  scale_color_distiller(palette = "YlOrRd", direction= 1) +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  labs(colour = "Temperature") 
+```
+
+## Spell check
+```{r, include=FALSE, eval=FALSE}
+library(spelling)
+qmd <- "presentation.qmd"
+ignore <- readLines("WORDLIST")
+check_spelling <- spell_check_files(
+  qmd,
+  ignore = ignore,
+  lang = "en_GB"
+)
+if (nrow(check_spelling) > 0) {
+  print(check_spelling)
+  stop("Check spelling in Qmd files!")
+}
+```
