@@ -1,6 +1,5 @@
 ---
 title: "Visualising Uncertainty with ggdibbler"
-subtitle: "Pre-submission Milestone"
 author: "Harriet Mason"
 bibliography: references.bib
 institute: "Supervisors: Di Cook, Sarah Goodwin, Susan Vanderplus"
@@ -11,9 +10,9 @@ format:
 editor_options: 
   chunk_output_type: console
 title-slide-attributes:
-  data-background-image: /images/img1b.jpeg
+  data-background-image: /images/img1.jpg
   data-background-size: contain
-  data-background-opacity: "0.5"
+  data-background-opacity: "0.2"
   smaller: true
 ---
 
