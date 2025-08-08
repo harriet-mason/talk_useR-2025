@@ -30,6 +30,60 @@ options(digits=3,
         repr.plot.height=8)
 ```
 
+![](images/){fig-align="center"}
+
+
+## Imagine you are me...
+
+## And you decide to do a PhD
+![](images/box2.jpg){fig-align="center"}
+
+## And your project is externally funded
+![](images/box3.jpg){fig-align="center"}
+
+## And you decide to do a PhD
+![](images/box4.jpg){fig-align="center"}
+
+## And you decide to do a PhD
+![](images/box5.jpg){fig-align="center"}
+
+## And you decide to do a PhD
+![](images/box6.jpg){fig-align="center"}
+
+## And you decide to do a PhD
+![](images/box7.jpg){fig-align="center"}
+
+
+## And you decide to do a PhD
+![](images/box8.jpg){fig-align="center"}
+
+
+## And you decide to do a PhD
+![](images/box9.jpg){fig-align="center"}
+
+
+## And you decide to do a PhD
+![](images/box10.jpg){fig-align="center"}
+
+
+## Where the project is externally funded...
+![](images/box11.jpg){fig-align="center"}
+
+## Where the project is externally funded...
+![](images/box12.jpg){fig-align="center"}
+
+## Where the project is externally funded...
+![](images/box13.jpg){fig-align="center"}
+## Where the project is externally funded...
+![](images/box14.jpg){fig-align="center"}
+## And the topic is not well defined
+![](images/box15.jpg){fig-align="center"}
+
+## And the topic is not well defined
+![](images/box16.jpg){fig-align="center"}
+
+## An 
+
 ## An example I made up for this talk
 :::: {.columns}
 
