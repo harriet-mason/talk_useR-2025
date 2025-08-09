@@ -322,13 +322,14 @@ grid.arrange(p1, p2, nrow = 1)
 :::
 ::::
 
-## Aside: why doesn't this work? 
+## Aside: why doesn't this work? {.smaller}
 - Uncertainty is not just another variable…
   - It presents an interesting perceptual problem
 - Usually do not want variables to interfere with each other
   - We want to be able to read variables separately
   - In uncertainty visualisation, the opposite is true
 
+![](images/signoise.jpeg){fig-align="center"}
 
 ## Solution: blend the colours together!
 ![](images/vsup.jpeg){fig-align="center"}
