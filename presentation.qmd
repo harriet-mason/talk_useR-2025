@@ -118,7 +118,7 @@ options(digits=3,
 # Can graphics lie?
 
 ## Citizen Scientists  
-- The Beuro of Meterology has been getting reports about weird temperatures in Iowa
+- The Bureau of Meteorology has been getting reports about weird temperatures in Iowa
 - Apparently, there is a strange spatial pattern in the data
 - We get some citizen scientists to measure data at their home and report back
 
@@ -215,7 +215,7 @@ ggplot(toy_temp) +
   - Can highlight small sample sizes, high variability, missing values, etc.
 - Understanding these limitations can prevent false conclusions
   
-## But the original data isnt always...
+## But the original data isn't always...
 - Available
   - e.g. anonymised data, theoretical values, etc.
 - Relevant
@@ -224,7 +224,7 @@ ggplot(toy_temp) +
   - e.g. bounded data, estimated values, etc.
 
 ## Going back to the example
-After we send in our data plot The Beuro of Meterology call us and let us know that we are only looking for a trend in the average values of the counties
+After we send in our data plot The Bureau of Meteorology call us and let us know that we are only looking for a trend in the average values of the counties
 
 - Need to use the sampling distribution
   - We do not have data for the sampling distribution
@@ -278,7 +278,7 @@ p_choro
 ::: {.column width="60%"}
 - Citizens are using some pretty old tools
 - The standard error **could** be our estimate or up to three times our estimate.
-- The Beuro want's to see both cases
+- The Bureau wants to see both cases
 
 :::
 
@@ -494,8 +494,8 @@ view(pixel_map)
 ```
 
 
-## Can we visualise distribution objects?
-- Yay have tidy format for distributions
+## Can we plot the pixel map now?
+- Have tidy format for distributions
 - Now need to extend `ggplot2` to implement it
 
 ## `ggplot2` was built on the grammar of graphics
@@ -601,11 +601,6 @@ ggplot(toy_temp_dist) +
 
 # End
 
-
-  
-
-
-## Spell check
 ```{r, include=FALSE, eval=FALSE}
 library(spelling)
 qmd <- "presentation.qmd"
