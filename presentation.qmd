@@ -1,8 +1,8 @@
 ---
 title: "Visualising Uncertainty with ggdibbler"
-author: "Harriet Mason"
+author: "Harriet Mason, Dianne Cook, Sarah Goodwin, Susan Vanderplas"
 bibliography: references.bib
-institute: "Monash University"
+institute: "Monash University, Australia"
 format: 
   revealjs: 
     theme: simple
@@ -498,7 +498,7 @@ view(pixel_map)
 - Have tidy format for distributions
 - Now need to extend `ggplot2` to implement it
 
-## `ggplot2` was built on the grammar of graphics
+## `ggplot2` uses the grammar of graphics
 
 ![](images/gog1.jpg){fig-align="center"}
 
@@ -592,6 +592,9 @@ ggplot(toy_temp_dist) +
 - Might implement VSUP into the package
   - `ggplot2` was *not* designed for accessing colour space directly
 - Integrate `dibble` object so that `geom_sf()` automatically does `geom_sf_sample()` if you pass a distribution in
+
+## `ggdibbler` Future Plans {.smaller}
+![](images/github.png){fig-align="center"}
 
 ## If you care about software
 ![](images/ggsite.png){fig-align="center"}
