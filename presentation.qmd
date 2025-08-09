@@ -122,7 +122,7 @@ options(digits=3,
 - Apparently, there is a strange spatial pattern in the data
 - We get some citizen scientists to measure data at their home and report back
 
-## NOT IF I HAVE ANYTHING TO DO WITH IT
+## NOT SO FAST CHUMP
 :::: {.columns}
 
 ::: {.column width="60%"}
@@ -499,6 +499,25 @@ view(pixel_map)
 
 
 # `ggdibbler`
+
+## The `ggdibbler` package
+::: {.columns}
+
+::: {.column width="40%"}
+
+![](images/gglogo2.png){fig-align="center"}
+
+:::
+
+::: {.column width="50%"}
+- Named after the Australian dibble animal
+  - Wanted it to be next to `ggdist`alphabetically in package list
+  - dibble = distribution tibble was an accident
+- Applies the previously discussed theoretical principles 
+:::
+
+::::
+
 
 ## `ggdibbler` Example
 
