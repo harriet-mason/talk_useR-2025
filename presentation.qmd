@@ -326,8 +326,8 @@ grid.arrange(p1, p2, nrow = 1)
 - Uncertainty is not just another variable…
   - It presents an interesting perceptual problem
 - Usually do not want variables to interfere with each other
-  - We want to be able to read variables separately
   - In uncertainty visualisation, the opposite is true
+  - This is the core of the signal suppression approach we implement
 
 ![](images/signoise.jpeg){fig-align="center"}
 
@@ -537,8 +537,8 @@ view(pixel_map)
 ::: {.column width="50%"}
 - Named after the Australian dibble animal
   - Wanted it to be next to `ggdist`alphabetically in package list
-  - dibble = distribution tibble was an accident
-- Applies the previously discussed theoretical principles 
+    - ggdist visualises distributions (not signal supression)
+  - dibble = distributional tibble was an accident
 
 :::
 
