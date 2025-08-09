@@ -16,6 +16,7 @@ title-slide-attributes:
   smaller: true
 ---
 
+
 ```{r}
 #| label: setup
 #| include: false
@@ -28,145 +29,215 @@ library(gridExtra)
 options(digits=3, 
         repr.plot.width=15,
         repr.plot.height=8)
+
+# ![](images/){fig-align="center"}
 ```
 
-![](images/){fig-align="center"}
+# Intro: <br> What Even is an Uncertainty Visualisation?
+
+## 
+![](images/box1.jpg){fig-align="center"}
 
 
-## Imagine you are me...
-
-## And you decide to do a PhD
+##
 ![](images/box2.jpg){fig-align="center"}
 
-## And your project is externally funded
+##
 ![](images/box3.jpg){fig-align="center"}
 
-## And you decide to do a PhD
+##
 ![](images/box4.jpg){fig-align="center"}
 
-## And you decide to do a PhD
+## 
 ![](images/box5.jpg){fig-align="center"}
 
-## And you decide to do a PhD
+## 
 ![](images/box6.jpg){fig-align="center"}
 
-## And you decide to do a PhD
+## 
 ![](images/box7.jpg){fig-align="center"}
 
 
-## And you decide to do a PhD
+## 
 ![](images/box8.jpg){fig-align="center"}
 
 
-## And you decide to do a PhD
+## 
 ![](images/box9.jpg){fig-align="center"}
 
 
-## And you decide to do a PhD
+## 
 ![](images/box10.jpg){fig-align="center"}
 
 
-## Where the project is externally funded...
+## 
 ![](images/box11.jpg){fig-align="center"}
 
-## Where the project is externally funded...
+## 
 ![](images/box12.jpg){fig-align="center"}
 
-## Where the project is externally funded...
+## 
 ![](images/box13.jpg){fig-align="center"}
-## Where the project is externally funded...
+
+## 
 ![](images/box14.jpg){fig-align="center"}
-## And the topic is not well defined
+
+## 
 ![](images/box15.jpg){fig-align="center"}
 
-## And the topic is not well defined
+
+## 
 ![](images/box16.jpg){fig-align="center"}
 
-## An 
 
-## An example I made up for this talk
+## 
+![](images/box17.jpg){fig-align="center"}
+
+## 
+![](images/box18.jpg){fig-align="center"}
+
+
+## 
+![](images/box19.jpg){fig-align="center"}
+
+## 
+![](images/box20.jpg){fig-align="center"}
+
+## 
+![](images/box21.jpg){fig-align="center"}
+
+## 
+![](images/box26.jpg){fig-align="center"}
+
+
+
+## 
+![](images/box27.jpg){fig-align="center"}
+
+
+# Part 1: <br> Can graphics lie?
+
+## Citizen Scientists  
+- Have been getting reports about weird temperatures in Iowa
+- Apparently, there is a strange spatial pattern in the data
+- We get some citizen scientists to measure data at their home and report back
+
+## NOT IF I HAVE ANYTHING TO DO WITH IT
 :::: {.columns}
-
-::: {.column width="40%"}
-![](images/img0.jpg)
-:::
 
 ::: {.column width="60%"}
-- Reports that average temperatures in Iowa are very odd!
-- Stumping climate scientists who are looking at it!!
-- Need to understand this weird temperature issue!!!
+
+![](images/cops1.jpg)
+
+:::
+
+::: {.column width="40%"}
+- Doing science is now illegal in Iowa
+- We need to maintain anonymity
+- Can only provide the county of each scientist
 
 :::
 
 ::::
 
-## An example I made up for this talk
-*(aside)*
 
-- We are going to look at variations of one plot
-  - The choropleth map
-- It makes the ideas we are talking about easier to understand
-- Concepts are more broadly appliciable than this one plot
-
-## Temperatures in Iowa
-:::: {.columns}
-
-::: {.column width="50%"}
+## The Citizen scientist data
 ```{r}
-toy_temp |>
+#| eval: false
+#| echo: true
+toy_temp
+```
+
+```{r}
+library(kableExtra)
+temp_data <- toy_temp |>
   as_tibble() |>
   select(scientistID, county_name,recorded_temp) |>
-  head(10) |>
-  gt()|>
-  tab_header(title = "Citizen Scientist Temperature Collection",
-             subtitle = "Data from Iowa Counties") |>
-  cols_label( 
-    scientistID = "Scientist ID", 
-    county_name = "County Name", 
-    recorded_temp = "Recorded Temp")
+  head(5)
+kbl(temp_data)
 ```
-:::
+`990` citizen scientists participated
 
-::: {.column width="50%"}
+## Looking at the data
+- We need to look at the data and identify:
+  - The spatial trend (does it exist or not)
+  - The statistical strength of the spatial trend
 
-- Maintain privacy because doing science in Iowa is now a crime.
+## We are not only communicating with...
+![](images/avgjoe.jpg)
 
-:::
+## We are also communicating with...
+![](images/mumtext.jpeg)
 
-::::
+# ...and myself
+![](images/mescam.jpeg)
 
 
-## Calculating Estimates
-:::: {.columns}
+## Good metrics
+![](images/goodtest.jpeg)
 
-::: {.column width="50%"}
+
+## If available, we plot the original data
 ```{r}
-# Mean data
+ggplot(toy_temp) +
+  geom_sf(aes(geometry=county_geometry), fill="white") +
+  geom_jitter(aes(x=county_longitude, y=county_latitude, colour=recorded_temp), 
+              width=7000, height =7000, alpha=0.7) +
+  theme_minimal() +
+  scale_colour_distiller(palette = "YlOrRd", direction= 1) +
+  ggtitle("Can you see a spatial trend?")
+```
+
+## Benefits of plotting the original data
+- Plots of the original data can reveal it's limitations
+  - Can highlight small sample sizes, high variability, missing values, etc.
+- Understanding these limitations can prevent false conclusions
+  
+## But the original data isnt always...
+- Available
+  - e.g. anonymised data, theoretical values, etc.
+- Relevant
+  - Might need to use a sampling distribution rather than original data
+- Deterministic
+  - e.g. bounded data, estimated values, etc.
+
+## Going back to the example
+After we send in our data plot The Beuro of Meterology call us and let us know that we are only looking for a trend in the average values of the counties
+- Need to use the sampling distribution
+  - We do not have data for the sampling distribution
+  - Usually we do not bother, instead we do something like...
+
+## Estimate the county mean
+
+```{r}
+#| include: false
+# Calculate County Mean
+mean_print <- toy_temp |> 
+  group_by(county_name) |>
+  summarise(temp_mean = mean(recorded_temp)) |>
+  as_tibble() |>
+  select(county_name, temp_mean) |>
+  head(5)
+
 toy_temp_mean <- toy_temp |> 
   group_by(county_name) |>
   summarise(temp_mean = mean(recorded_temp)) 
-
-toy_temp_mean |> 
-  as_tibble() |>
-  select(county_name, temp_mean) |>
-  head(10) |>
-  gt()|>
-  tab_header(title = "Average Temperature",
-             subtitle = "Estimates for Iowa Counties") |>
-  cols_label(
-    county_name = "County Name", 
-    temp_mean = "Mean Temperature")
 ```
-:::
 
-::: {.column width="50%"}
-- Can you see the weird temperature trend?
-:::
+```{r}
+#| echo: true
+#| eval: false
+# Calculate County Mean
+toy_temp |> 
+  group_by(county_name) |>
+  summarise(temp_mean = mean(recorded_temp)) 
+```
 
-::::
+```{r}
+kbl(mean_print)
+```
 
-
-## Choropleth Map
+## Visualise with a choropleth map
 ```{r}
 p_choro <- ggplot(toy_temp_mean) +
   geom_sf(aes(geometry=county_geometry, fill=temp_mean)) +
@@ -175,45 +246,23 @@ p_choro <- ggplot(toy_temp_mean) +
   xlab("Longitude") +
   ylab("Latitude") +
   labs(fill = "Temperature") +
-  ggtitle("Choropleth Map")
+  ggtitle("Can you see the spatial trend?")
 p_choro
 ```
 
-## Why communicate with a visualisation?
-
-- "Ah I see"
-- Utilises lizard brain
-- Conveys a large amount of information at once
-
-
-```{r}
-#| fig-align: center
-p_choro
-```
-
-## Fine if we are communicating with...
-![](images/img3.jpg)
-
-## Harder if we are communicating with...
-![](images/img4.jpeg)
-
-## Oh no, a hurdle
-
-![](images/img5.jpeg)
-
-
-## Turns out mum is kind of right....
+## The meteorologists are harassing me
 :::: {.columns}
 
 ::: {.column width="60%"}
-- We find out some citizen scientists are using some pretty old tools
-- The standard error **could** be our estimate....
-  - or it could be about three times that.
-- Does the spatial trend still exist in the high variance case?
+- The Beuro of Meterology calls AGAIN
+- Citizens are using some pretty old tools
+- The standard error **could** be our estimate or up to three times that.
+- The Beuro want's to see both cases
+
 :::
 
 ::: {.column width="40%"}
-![](images/img6.jpeg)
+![](images/thermo.jpeg)
 :::
 
 ::::
@@ -221,56 +270,68 @@ p_choro
 ## Spot the difference
 ```{r}
 # same plot twice lol
-p1 <- p_choro + ggtitle("Low Variance")
-p2 <- p_choro + ggtitle("High Variance")
+p1 <- p_choro + ggtitle("Low Standard Error")
+p2 <- p_choro + ggtitle("High Standard Error")
 grid.arrange(p1, p2, nrow = 1)
 ```
+- We cannot send the weather nerds these plots
 
-## We Need to Include Uncertainty
+# The data structure
+
+## Need to integrate the uncertainty information in
+- We can represent every estimate as a random variable
+- To maintain tidy structure, we would either need to:
+  - We would either need to include a complicated function or some kind of vectorised distribution objects
+- Spent weeks thinking I was going to have to make this package :(
+
+## Thank god for `distributional`
+
+```{r}
+#| echo: true
+#| label: false
+toy_temp_est <- toy_temp |> 
+  group_by(county_name) |>
+  summarise(temp_dist = dist_normal(mu = mean(recorded_temp), 
+                        sigma = sd(recorded_temp)/sqrt(n())))
+```
+
+
+## Thank god for `distributional`
 :::: {.columns}
 
-::: {.column width="70%"}
-- Failing to include uncertainty can be akin to fraud or lying
-  - Transparency increases trust
-  - Prevents bad actors from exploiting hidden variance
-- Promotes better decisions
+
+::: {.column width="40%"}
+
+```{r}
+toy_temp_est |> 
+  as_tibble() |>
+  select(county_name, temp_dist) |>
+  head(10) |>
+  kbl()
+```
 
 :::
 
-::: {.column width="30%"}
-![](images/img7.jpeg)
+::: {.column width="60%"}
+```{r}
+#| echo: true
+class(toy_temp_est$temp_dist)
+```
+
+- `distributional` lets you store distributions in a `tibble`
 :::
 
 ::::
-
-## We are also communicating with...
-
-![](images/img8.jpeg)
-
-## How do we please my mother??? <br> (and also me)
-```{r}
-#| include: false
-ggplot(toy_temp_mean) +
-  geom_sf(aes(geometry=county_geometry), fill="white") +
-  theme_minimal() +
-  xlab("Longitude") +
-  ylab("Latitude") +
-  labs(fill = "Temperature")
-```
-
-![](images/img2.jpeg)
 
 
 ## Uncertainty visualisation should...
 :::: {.columns}
 
 ::: {.column width="30%"}
-![](images/img9.jpeg)
+![](images/madsad.jpeg)
 :::
 
 ::: {.column width="70%"}
-
-<br>
 
 1) Reinforce justified signals
   - We want my mum to trust the results
@@ -279,18 +340,20 @@ ggplot(toy_temp_mean) +
 2) Hide signals that are just noise
   - I don’t want to see something that isn’t there
 
+*Currently doing neither*
+
 :::
 
 ::::
 
 ## Solution: add an axis for uncertainty
-![](images/img10.jpeg)
+![](images/bivar.jpeg)
 
 ## Does this work? Not really {.smaller}
 :::: {.columns}
 
 ::: {.column width="30%"}
-![](images/img11.jpeg)
+![](images/bivarface.jpeg)
 :::
 
 ::: {.column width="70%"}
@@ -299,11 +362,9 @@ ggplot(toy_temp_mean) +
   - Included uncertainty and increased transparency
 - Cons
   - High uncertainty signal still very visible so I am still getting scammed
-    - Also sometimes creates false signals
-  - People can (and do) ignore the uncertainty
   - 2D palette is harder to read
     - Colour hues are not a simple 2D space
-  - Using saturation hurts accessibility
+    - Using saturation hurts accessibility
 
 :::
 ::::
@@ -318,7 +379,7 @@ ggplot(toy_temp_mean) +
 
 ## Signal suppression 
 
-![](images/img12.jpeg){fig-align="center"}
+![](images/signoise.jpeg){fig-align="center"}
 
 - Visualising uncertainty as noise.
 - The error (noise) *should* interfere with our reading of the temperature (signal)
@@ -326,19 +387,18 @@ ggplot(toy_temp_mean) +
 
 
 ## Solution: blend the colours together!
-![](images/img13.jpeg)
+![](images/vsup.jpeg)
 
 ## Does this work? Kind of... {.smaller}
 :::: {.columns}
 
 ::: {.column width="20%"}
-![](images/img15.jpeg)
+![](images/vsupface.jpeg)
 :::
 
 ::: {.column width="70%"}
 - Pros
-  - Included uncertainty
-  - High uncertainty map has no visible trend 
+  - Included uncertainty and increased transparency
   - Uncertainty hard to ignore
 - Cons
   - Still have 2D Colour palette 
@@ -353,19 +413,19 @@ ggplot(toy_temp_mean) +
 
 ## Solution: simulate a sample
 
-![](images/img14.jpeg)
+![](images/choro.jpeg)
 
 ## Does this work? Almost! {.smaller}
 :::: {.columns}
 
 ::: {.column width="25%"}
-![](images/img16.jpeg)
+![](images/sampleface.jpeg)
 :::
 
 ::: {.column width="70%"}
 - Pros
   - Included uncertainty 
-  - High uncertainty map has harder to read trend 
+  - High uncertainty map has harder to read trend (?)
   - Uncertainty hard to ignore
   - 1D colour palette 
     - No more weird colour space
@@ -376,127 +436,18 @@ ggplot(toy_temp_mean) +
 
 :::
 
-::::
-
-
-
-## A fun insight ...
-:::: {.columns}
-
-::: {.column width="30%"}
-![](images/img17.jpeg)
-:::
-
-::: {.column width="70%"}
-- Every single plot was a complete nightmare to make
-  - I suffered immensely making them
-  - I *would* wish this fate onto my worst enemy 
-    - I am just a spiteful person
   
-:::
-
-::::
-
-
-## What exists - bivariate palettes {.smaller}
-- `biscale` 
-  - Very basic inbuilt colour scales
-  - Anything else requires you to manually design the palette
-  - Make every component separately then combine
-- `Vizumap` 
-  - similar issues to `biscale`
-
-
-## Ideal bivariate palette code
-- Would like to control hue, saturation, and colour value separately
-- Touch as few `ggplot` settings as possible
-
-```{r}
-#| eval: false
-#| echo: true
-# Psudo Code
-ggplot(data) |>
-  geom_sf(aes(geometry = geometries,
-              fill_hue = mean, 
-              fill_saturation = standard_error))
-```
-
-## For example: `biscale` code
-```{r}
-# set large variance multiplier
-m <- 3
-toy_temp_est <- toy_temp |> 
-  group_by(county_name) |>
-  summarise(temp_mean = mean(recorded_temp),
-            temp_se_low = sd(recorded_temp)/sqrt(n()),
-            temp_se_high = 2*temp_se_low) 
-```
-
-```{r}
-#| echo: true
-# Bivar (default plot)
-library(biscale)
-
-# Run it through a function that messes with your data
-data <- bi_class(toy_temp_est, 
-                 x = temp_mean, 
-                 y = temp_se_low, 
-                 style = "quantile", 
-                 dim = 3)
-
-# Manually make legend
-legend <- bi_legend(pal = "PurpleOr",
-                    dim = 3,
-                    xlab = "Temperature",
-                    ylab = "Standard Error",
-                    size = 8)
-
-# Make plot
-plot <- data |>
-  ggplot() +
-  geom_sf(aes(fill = bi_class), color = "white", size = 0.1,
-          # Need to turn off legend of actual plot
-          show.legend = FALSE) +
-  bi_scale_fill(pal = "PurpleOr", dim = 3) +
-  labs(
-    title = "Trying to make the bivar palette",
-    subtitle = "a sorry attempt"
-  ) +
-  bi_theme()
-
-# Combine plot and legend using cowplot
-finalPlot <- ggdraw() +
-  draw_plot(map, 0, 0, 1, 1) +
-  draw_plot(legend, 0.2, .65, 0.2, 0.2)
-```
-
-## For example: `biscale` plot
-- I couldn't even get it to work. This is the plot generated:
-
-```{r}
-finalPlot
-```
-
-- Package hasn't been updated in 3 years.
-
-## What exists - VSUP
-- Nothing for VSUP specifically
-  - Would need to manually create one using a bivariate palette
-  
-  
-## What exists - pixelation map {.smaller}
-
+## What did I live through... {.smaller}
+- There are several packages with these issues (I am not saying `Visumap` is bad)
 - `Vizumap` is a sample map option
-  - Makes:
-    - Bivariate maps and Pixel (sample) maps
-    - Also glyph maps
+  - Makes Bivariate maps and Pixel (sample) maps
   - Package is designed specifically for uncertainty
-  - Issues
-    - `ggplot2` flexibility is lost
-      - e.g. you can only use one of three specific palettes
-    - *Very* computationally expensive
-      - A simple map can take over a minute to run
-    - Again, need to make every component separately then combine
+- Issues
+  - `ggplot2` flexibility is lost
+    - e.g. you can only use one of three specific palettes
+  - *Very* computationally expensive
+    - A simple map can take over a minute to run
+  - Need to make every component separately then combine
 
 ## Ideal pixelation map code
 - the `ggplot` recognises the random variable input, and changes the visualisation accordingly
@@ -529,6 +480,7 @@ data <- read.uv(data = original_data,
 # Step 2: Pixelate the shapefile
 pixelation <- pixelate(geoData = geometry_data, 
                        id = "ID", 
+                       # improved - set number of pixels
                        pixelSize = 100)
 
 
@@ -550,47 +502,20 @@ view(pixel_map)
 - `ggplot2` was built on the grammar of graphics
 - Built to take in data, not distributions.
 
-![](images/img20.jpeg)
-
 ## The grammar of graphics
-![](images/img18.jpeg)
+![](images/gog1.jpg)
+## Data as an input
 
+![](images/gog3.jpg){width=50%, fig-align="center"}
 
-## `ggdibbler`
+![](images/gog4.jpg){width=50%, fig-align="center"}
+
+![](images/gog5.jpg){width=50%, fig-align="center"}
+
   
-![](images/img24.png){width=50%, fig-align="center"}
-
-## `distributional` input
-:::: {.columns}
-
-::: {.column width="40%"}
-
-```{r}
-toy_temp_dist |> 
-  as_tibble() |>
-  select(county_name, temp_dist) |>
-  head(10) |>
-  gt() |>
-  tab_header(title = "Average Temperature",
-             subtitle = "Estimates for Iowa Counties") |>
-  cols_label(county_name = "County Name", 
-             temp_dist = "Temperature")
-```
-:::
-
-::: {.column width="60%"}
-- `distributional` lets you store distributions in a `tibble`
-- Riding those coat tails all the way to a CRAN submission
-:::
-
-::::
 
 
-## `ggdibbler` vs `ggplot2`
-![](images/img25.jpeg){fig-align="center"}
 
-## `ggdibbler` approach
-![](images/img23.jpeg){width=90%, fig-align="center"}
 
 ## `ggdibbler` Example
 
@@ -611,7 +536,7 @@ toy_temp_dist |>
 #| echo: true
 #| fig-align: center 
 ggplot(toy_temp_dist) +
-  geom_sf_sample(aes(geometry=county_geometry, fill=temp_dist),  linewidth=0, n=4) +
+  geom_sf_sample(aes(geometry=county_geometry, fill=temp_dist),  linewidth=0, n=7) +
   geom_sf(aes(geometry = county_geometry), fill=NA, linewidth=0.5, colour="white") +
   theme_minimal() +
   scale_fill_distiller(palette = "YlOrRd", direction= 1) +
@@ -624,65 +549,14 @@ ggplot(toy_temp_dist) +
 
 
 ## `ggdibbler` Future Plans {.smaller}
-- Might implement VSUP into the package
-  - I half did it and then gave up
-  - `ggplot2` was *not* designed for accessing colour space directly
 - Implement `ggdibbler` variations of other `geom_*()` functions
-  - e.g. `geom_point()`, `geom_distribution()`, etc.
+  - e.g. `geom_point()`, etc.
+- Might implement VSUP into the package
+  - `ggplot2` was *not* designed for accessing colour space directly
 - Integrate `dibble` object so that `geom_sf()` automatically does `geom_sf_sample()` if you pass a distribution in
 
 
-## General future plans
-- Now that the graphics are easy to make, test if they work
-- Our method thus far
-  - Looking at a graphic and going "neat" 
-  - Not exactly rigorous science
-  
-### Common Plot Evaluation Methods
-- Confidence
-  - What is the mean of this variable? How certain are you?
-  - Errors conflated with poor plot design
-
-- Value extraction
-  - What is the standard error of this estimate?
-  - Can't directly ask about error in visualisation experiments
-
-### Issues with testing Signal Suppression
-- Unlike in purely mathematical statistics, the "estimate" is not set beforehand
-- You can extract multiple statistics from a single visualisation
-- The "estimate" becomes whichever statistic you ask about
-- Then "uncertainty visualisation" experiments will follow the same results as "normal" visualisation experiments
-  - Perceptual hierarchy, gestalt principles, etc.
-- Need to develop methods that allow you to measure the effect of noise without directly asking about it
-
-
-
 # End
-
-# Appendix
-
-## Other Cases
-- Visualisations where values are actually estimates
-  - e.g. Statistical summaries
-  - e.g. Using data from ABS (or other government organisation)
-
-
-## `ggdist`
-![](images/img22.jpeg)
-
-
-## Looking at the data
-```{r}
-ggplot(toy_temp) +
-  geom_sf(aes(geometry=county_geometry), fill="white") +
-  geom_jitter(aes(x=county_longitude, y=county_latitude, colour=recorded_temp, alpha=0.5), 
-              width=5000, height =5000, alpha=0.7) +
-  theme_minimal() +
-  scale_color_distiller(palette = "YlOrRd", direction= 1) +
-  xlab("Longitude") +
-  ylab("Latitude") +
-  labs(colour = "Temperature") 
-```
 
 ## Spell check
 ```{r, include=FALSE, eval=FALSE}
