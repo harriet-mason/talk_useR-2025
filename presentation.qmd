@@ -2,7 +2,7 @@
 title: "Visualising Uncertainty with ggdibbler"
 author: "Harriet Mason"
 bibliography: references.bib
-institute: "Supervisors: Di Cook, Sarah Goodwin, Susan Vanderplus"
+institute: "Monash University"
 format: 
   revealjs: 
     theme: simple
@@ -33,7 +33,7 @@ options(digits=3,
 # ![](images/){fig-align="center"}
 ```
 
-# Intro: <br> What Even is an Uncertainty Visualisation?
+# What Even is an Uncertainty Visualisation?
 
 ## 
 ![](images/box1.jpg){fig-align="center"}
@@ -115,10 +115,10 @@ options(digits=3,
 ![](images/box27.jpg){fig-align="center"}
 
 
-# Part 1: <br> Can graphics lie?
+# Can graphics lie?
 
 ## Citizen Scientists  
-- Have been getting reports about weird temperatures in Iowa
+- The Beuro of Meterology has been getting reports about weird temperatures in Iowa
 - Apparently, there is a strange spatial pattern in the data
 - We get some citizen scientists to measure data at their home and report back
 
@@ -141,7 +141,7 @@ options(digits=3,
 ::::
 
 
-## The Citizen scientist data
+## The citizen scientist data
 ```{r}
 #| eval: false
 #| echo: true
@@ -158,34 +158,56 @@ kbl(temp_data)
 ```
 `990` citizen scientists participated
 
-## Looking at the data
+## Visualisation goals
 - We need to look at the data and identify:
   - The spatial trend (does it exist or not)
   - The statistical strength of the spatial trend
 
-## We are not only communicating with...
+## Approach needs to work for...
 ![](images/avgjoe.jpg)
 
-## We are also communicating with...
+## ...and...
 ![](images/mumtext.jpeg)
 
-# ...and myself
+# ...and..
 ![](images/mescam.jpeg)
 
 
-## Good metrics
-![](images/goodtest.jpeg)
+## Uncertainty visualisation should...
+:::: {.columns}
+
+::: {.column width="30%"}
+![](images/madsad.jpeg)
+:::
+
+::: {.column width="70%"}
+
+<br>
+
+1) Reinforce justified signals
+  - We want my mum to trust the results
 
 
-## If available, we plot the original data
+2) Hide signals that are just noise
+  - I don’t want to see something that isn’t there
+
+:::
+
+::::
+
+
+## Can also think of it as...
+![](images/goodtest.jpeg){fig-align="center"}
+
+
+## We could just plot the data...
 ```{r}
 ggplot(toy_temp) +
   geom_sf(aes(geometry=county_geometry), fill="white") +
   geom_jitter(aes(x=county_longitude, y=county_latitude, colour=recorded_temp), 
               width=7000, height =7000, alpha=0.7) +
   theme_minimal() +
-  scale_colour_distiller(palette = "YlOrRd", direction= 1) +
-  ggtitle("Can you see a spatial trend?")
+  scale_colour_distiller(palette = "YlOrRd", direction= 1) 
 ```
 
 ## Benefits of plotting the original data
@@ -203,6 +225,7 @@ ggplot(toy_temp) +
 
 ## Going back to the example
 After we send in our data plot The Beuro of Meterology call us and let us know that we are only looking for a trend in the average values of the counties
+
 - Need to use the sampling distribution
   - We do not have data for the sampling distribution
   - Usually we do not bother, instead we do something like...
@@ -245,18 +268,16 @@ p_choro <- ggplot(toy_temp_mean) +
   scale_fill_distiller(palette = "YlOrRd", direction= 1) +
   xlab("Longitude") +
   ylab("Latitude") +
-  labs(fill = "Temperature") +
-  ggtitle("Can you see the spatial trend?")
+  labs(fill = "Temperature") 
 p_choro
 ```
 
-## The meteorologists are harassing me
+## But what if the error is worse?
 :::: {.columns}
 
 ::: {.column width="60%"}
-- The Beuro of Meterology calls AGAIN
 - Citizens are using some pretty old tools
-- The standard error **could** be our estimate or up to three times that.
+- The standard error **could** be our estimate or up to three times our estimate.
 - The Beuro want's to see both cases
 
 :::
@@ -274,77 +295,9 @@ p1 <- p_choro + ggtitle("Low Standard Error")
 p2 <- p_choro + ggtitle("High Standard Error")
 grid.arrange(p1, p2, nrow = 1)
 ```
-- We cannot send the weather nerds these plots
-
-# The data structure
-
-## Need to integrate the uncertainty information in
-- We can represent every estimate as a random variable
-- To maintain tidy structure, we would either need to:
-  - We would either need to include a complicated function or some kind of vectorised distribution objects
-- Spent weeks thinking I was going to have to make this package :(
-
-## Thank god for `distributional`
-
-```{r}
-#| echo: true
-#| label: false
-toy_temp_est <- toy_temp |> 
-  group_by(county_name) |>
-  summarise(temp_dist = dist_normal(mu = mean(recorded_temp), 
-                        sigma = sd(recorded_temp)/sqrt(n())))
-```
 
 
-## Thank god for `distributional`
-:::: {.columns}
-
-
-::: {.column width="40%"}
-
-```{r}
-toy_temp_est |> 
-  as_tibble() |>
-  select(county_name, temp_dist) |>
-  head(10) |>
-  kbl()
-```
-
-:::
-
-::: {.column width="60%"}
-```{r}
-#| echo: true
-class(toy_temp_est$temp_dist)
-```
-
-- `distributional` lets you store distributions in a `tibble`
-:::
-
-::::
-
-
-## Uncertainty visualisation should...
-:::: {.columns}
-
-::: {.column width="30%"}
-![](images/madsad.jpeg)
-:::
-
-::: {.column width="70%"}
-
-1) Reinforce justified signals
-  - We want my mum to trust the results
-
-
-2) Hide signals that are just noise
-  - I don’t want to see something that isn’t there
-
-*Currently doing neither*
-
-:::
-
-::::
+# What does a good uncertainty visualisation look like?
 
 ## Solution: add an axis for uncertainty
 ![](images/bivar.jpeg)
@@ -363,7 +316,7 @@ class(toy_temp_est$temp_dist)
 - Cons
   - High uncertainty signal still very visible so I am still getting scammed
   - 2D palette is harder to read
-    - Colour hues are not a simple 2D space
+    - Colour is not a simple 3D space
     - Using saturation hurts accessibility
 
 :::
@@ -371,19 +324,10 @@ class(toy_temp_est$temp_dist)
 
 ## Why doesn't this work? 
 - Uncertainty is not just another variable…
-  - We do not have a high-dimension visualisation or basic heuristic problem
-
-- Two dimensions = No interference
-  - Normal visualization = GOOD!
-  - Uncertainty visualization = BAD! 
-
-## Signal suppression 
-
-![](images/signoise.jpeg){fig-align="center"}
-
-- Visualising uncertainty as noise.
-- The error (noise) *should* interfere with our reading of the temperature (signal)
-- But *only* when the signal has high error
+  - It presents an interesting perceptual problem
+- Usually do not want variables to interfere with each other
+  - We want to be able to read variables separately
+  - In uncertainty visualisation, the opposite is true
 
 
 ## Solution: blend the colours together!
@@ -399,11 +343,11 @@ class(toy_temp_est$temp_dist)
 ::: {.column width="70%"}
 - Pros
   - Included uncertainty and increased transparency
-  - Uncertainty hard to ignore
+  - No false signals
 - Cons
   - Still have 2D Colour palette 
-    - Saturation hurts accessibility
   - Standard error at which to blend colours is made up
+    - Blend at 1? 2? 4? 37?
     - Impossible to align with hypothesis testing
  
  
@@ -425,21 +369,54 @@ class(toy_temp_est$temp_dist)
 ::: {.column width="70%"}
 - Pros
   - Included uncertainty 
-  - High uncertainty map has harder to read trend (?)
-  - Uncertainty hard to ignore
+  - High uncertainty interferes with reading of plot (?)
   - 1D colour palette 
-    - No more weird colour space
-    - More accessible
 
 - Cons
   - Nightmare to make
 
 :::
+::::
 
-  
-## What did I live through... {.smaller}
-- There are several packages with these issues (I am not saying `Visumap` is bad)
-- `Vizumap` is a sample map option
+# Why are the plots hard?
+
+## Storing uncertain data
+- Main issues stem from difficulties to come from storing uncertain data
+- Best to represent uncertain data as a distribution
+  - That distribution should take up one cell
+  - Set up a vectorised distribution object?
+
+## Thank god for `distributional`
+
+```{r}
+#| echo: true
+toy_temp_est <- toy_temp |> 
+  group_by(county_name) |>
+  summarise(temp_dist = dist_normal(mu = mean(recorded_temp),
+                                    sigma = sd(recorded_temp)/sqrt(n())))
+```
+
+```{r}
+toy_temp_est |> 
+  as_tibble() |>
+  select(county_name, temp_dist) |>
+  head(5) |>
+  kbl()
+```
+
+## What does it do?
+
+- `distributional` lets you store distributions in a `tibble` as distribution objects
+
+```{r}
+#| echo: true
+
+class(toy_temp_est$temp_dist)
+```
+
+## What if we don't use distributional? {.smaller}
+- Existing tidy data structures are not great for uncertain data
+- e.g. `Vizumap` 
   - Makes Bivariate maps and Pixel (sample) maps
   - Package is designed specifically for uncertainty
 - Issues
@@ -458,7 +435,7 @@ class(toy_temp_est$temp_dist)
 #| echo: true
 # Psudo Code
 ggplot(data) |>
-  geom_sf(aes(geometry = geometries,
+  geom_sf(aes(geometry = geometry,
               fill = random_variable)) 
 ```
 
@@ -498,24 +475,30 @@ view(pixel_map)
 ```
 
 
-## Why is integrating uncertainty hard?
-- `ggplot2` was built on the grammar of graphics
-- Built to take in data, not distributions.
+## Does `distributional` mean we are done?
+- Nope
+- While the tidy format is useful (and necessary) we now need to extend `ggplot2` to implement it
+- Why?
 
-## The grammar of graphics
-![](images/gog1.jpg)
-## Data as an input
+## `ggplot2` was built on the grammar of graphics
 
-![](images/gog3.jpg){width=50%, fig-align="center"}
-
-![](images/gog4.jpg){width=50%, fig-align="center"}
-
-![](images/gog5.jpg){width=50%, fig-align="center"}
-
-  
+![](images/gog1.jpg){fig-align="center"}
 
 
+## It is designed to take in data
 
+![](images/gog3.jpg){fig-align="center"}
+
+## Not theoretical distributions
+
+![](images/gog4.jpg){fig-align="center"}
+
+## This is what `ggdibbler` is for
+
+![](images/gog5.jpg){fig-align="center"}
+
+
+# `ggdibbler`
 
 ## `ggdibbler` Example
 
@@ -547,16 +530,42 @@ ggplot(toy_temp_dist) +
 
 ```
 
+## Wow, look at that software go x2
+
+```{r}
+#| echo: true
+#| fig-align: center 
+ggplot(toy_temp_dist) +
+  geom_sf_sample(aes(geometry=county_geometry, fill=temp_dist),  linewidth=0, n=7) +
+  geom_sf(aes(geometry = county_geometry), fill=NA, linewidth=0.5, colour="white") +
+  theme_minimal() +
+  scale_fill_distiller(palette = "YlOrRd", direction= 1) +
+  xlab("Longitude") +
+  ylab("Latitude") +
+  labs(fill = "Temperature") +
+  ggtitle("A super cool and customised plot")
+
+```
 
 ## `ggdibbler` Future Plans {.smaller}
 - Implement `ggdibbler` variations of other `geom_*()` functions
   - e.g. `geom_point()`, etc.
+  - currently only has one function (I just came back from leave)
 - Might implement VSUP into the package
   - `ggplot2` was *not* designed for accessing colour space directly
 - Integrate `dibble` object so that `geom_sf()` automatically does `geom_sf_sample()` if you pass a distribution in
 
+## If you care about software
+![](images/ggsite.png){fig-align="center"}
+
+## If you care about theory
+![](images/papersite.png){fig-align="center"}
 
 # End
+
+
+  
+
 
 ## Spell check
 ```{r, include=FALSE, eval=FALSE}

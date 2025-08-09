@@ -401,15 +401,15 @@
 Harriet Mason 
 </div>
         <p class="quarto-title-affiliation">
-            Supervisors: Di Cook, Sarah Goodwin, Susan Vanderplus
+            Monash University
           </p>
     </div>
 </div>
 
 </section>
 <section>
-<section id="intro-what-even-is-an-uncertainty-visualisation" class="title-slide slide level1 center">
-<h1>Intro: <br> What Even is an Uncertainty Visualisation?</h1>
+<section id="what-even-is-an-uncertainty-visualisation" class="title-slide slide level1 center">
+<h1>What Even is an Uncertainty Visualisation?</h1>
 
 </section>
 <section id="section" class="slide level2">
@@ -505,14 +505,14 @@ Harriet Mason
 
 <img data-src="images/box27.jpg" class="quarto-figure quarto-figure-center r-stretch"></section></section>
 <section>
-<section id="part-1-can-graphics-lie" class="title-slide slide level1 center">
-<h1>Part 1: <br> Can graphics lie?</h1>
+<section id="can-graphics-lie" class="title-slide slide level1 center">
+<h1>Can graphics lie?</h1>
 
 </section>
 <section id="citizen-scientists" class="slide level2">
 <h2>Citizen Scientists</h2>
 <ul>
-<li>Have been getting reports about weird temperatures in Iowa</li>
+<li>The Beuro of Meterology has been getting reports about weird temperatures in Iowa</li>
 <li>Apparently, there is a strange spatial pattern in the data</li>
 <li>We get some citizen scientists to measure data at their home and report back</li>
 </ul>
@@ -531,7 +531,7 @@ Harriet Mason
 </div></div>
 </section>
 <section id="the-citizen-scientist-data" class="slide level2">
-<h2>The Citizen scientist data</h2>
+<h2>The citizen scientist data</h2>
 <div class="cell">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb1-1"><a href=""></a>toy_temp</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
@@ -579,8 +579,8 @@ Harriet Mason
 </div>
 <p><code>990</code> citizen scientists participated</p>
 </section>
-<section id="looking-at-the-data" class="slide level2">
-<h2>Looking at the data</h2>
+<section id="visualisation-goals" class="slide level2">
+<h2>Visualisation goals</h2>
 <ul>
 <li>We need to look at the data and identify:
 <ul>
@@ -589,25 +589,46 @@ Harriet Mason
 </ul></li>
 </ul>
 </section>
-<section id="we-are-not-only-communicating-with" class="slide level2">
-<h2>We are not only communicating with…</h2>
+<section id="approach-needs-to-work-for" class="slide level2">
+<h2>Approach needs to work for…</h2>
 
 <img data-src="images/avgjoe.jpg" class="r-stretch"></section>
-<section id="we-are-also-communicating-with" class="slide level2">
-<h2>We are also communicating with…</h2>
+<section id="and" class="slide level2">
+<h2>…and…</h2>
 
 <img data-src="images/mumtext.jpeg" class="r-stretch"></section></section>
 <section>
-<section id="and-myself" class="title-slide slide level1 center">
-<h1>…and myself</h1>
+<section id="and.." class="title-slide slide level1 center">
+<h1>…and..</h1>
 
 <img data-src="images/mescam.jpeg" class="r-stretch"></section>
-<section id="good-metrics" class="slide level2">
-<h2>Good metrics</h2>
+<section id="uncertainty-visualisation-should" class="slide level2">
+<h2>Uncertainty visualisation should…</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><img data-src="images/madsad.jpeg"></p>
+</div><div class="column" style="width:70%;">
+<p><br></p>
+<ol type="1">
+<li>Reinforce justified signals</li>
+</ol>
+<ul>
+<li>We want my mum to trust the results</li>
+</ul>
+<ol start="2" type="1">
+<li>Hide signals that are just noise</li>
+</ol>
+<ul>
+<li>I don’t want to see something that isn’t there</li>
+</ul>
+</div></div>
+</section>
+<section id="can-also-think-of-it-as" class="slide level2">
+<h2>Can also think of it as…</h2>
 
-<img data-src="images/goodtest.jpeg" class="r-stretch"></section>
-<section id="if-available-we-plot-the-original-data" class="slide level2">
-<h2>If available, we plot the original data</h2>
+<img data-src="images/goodtest.jpeg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="we-could-just-plot-the-data" class="slide level2">
+<h2>We could just plot the data…</h2>
 
 <img data-src="presentation_files/figure-revealjs/unnamed-chunk-3-1.png" width="960" class="r-stretch"></section>
 <section id="benefits-of-plotting-the-original-data" class="slide level2">
@@ -639,7 +660,14 @@ Harriet Mason
 </section>
 <section id="going-back-to-the-example" class="slide level2">
 <h2>Going back to the example</h2>
-<p>After we send in our data plot The Beuro of Meterology call us and let us know that we are only looking for a trend in the average values of the counties - Need to use the sampling distribution - We do not have data for the sampling distribution - Usually we do not bother, instead we do something like…</p>
+<p>After we send in our data plot The Beuro of Meterology call us and let us know that we are only looking for a trend in the average values of the counties</p>
+<ul>
+<li>Need to use the sampling distribution
+<ul>
+<li>We do not have data for the sampling distribution</li>
+<li>Usually we do not bother, instead we do something like…</li>
+</ul></li>
+</ul>
 </section>
 <section id="estimate-the-county-mean" class="slide level2">
 <h2>Estimate the county mean</h2>
@@ -690,14 +718,13 @@ Harriet Mason
 <h2>Visualise with a choropleth map</h2>
 
 <img data-src="presentation_files/figure-revealjs/unnamed-chunk-7-1.png" width="960" class="r-stretch"></section>
-<section id="the-meteorologists-are-harassing-me" class="slide level2">
-<h2>The meteorologists are harassing me</h2>
+<section id="but-what-if-the-error-is-worse" class="slide level2">
+<h2>But what if the error is worse?</h2>
 <div class="columns">
 <div class="column" style="width:60%;">
 <ul>
-<li>The Beuro of Meterology calls AGAIN</li>
 <li>Citizens are using some pretty old tools</li>
-<li>The standard error <strong>could</strong> be our estimate or up to three times that.</li>
+<li>The standard error <strong>could</strong> be our estimate or up to three times our estimate.</li>
 <li>The Beuro want’s to see both cases</li>
 </ul>
 </div><div class="column" style="width:40%;">
@@ -707,30 +734,129 @@ Harriet Mason
 <section id="spot-the-difference" class="slide level2">
 <h2>Spot the difference</h2>
 
-<img data-src="presentation_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"><ul>
-<li>We cannot send the weather nerds these plots</li>
-</ul>
-</section></section>
+<img data-src="presentation_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section></section>
 <section>
-<section id="the-data-structure" class="title-slide slide level1 center">
-<h1>The data structure</h1>
+<section id="what-does-a-good-uncertainty-visualisation-look-like" class="title-slide slide level1 center">
+<h1>What does a good uncertainty visualisation look like?</h1>
 
 </section>
-<section id="need-to-integrate-the-uncertainty-information-in" class="slide level2">
-<h2>Need to integrate the uncertainty information in</h2>
+<section id="solution-add-an-axis-for-uncertainty" class="slide level2">
+<h2>Solution: add an axis for uncertainty</h2>
+
+<img data-src="images/bivar.jpeg" class="r-stretch"></section>
+<section id="does-this-work-not-really" class="slide level2 smaller">
+<h2>Does this work? Not really</h2>
+<div class="columns">
+<div class="column" style="width:30%;">
+<p><img data-src="images/bivarface.jpeg"></p>
+</div><div class="column" style="width:70%;">
 <ul>
-<li>We can represent every estimate as a random variable</li>
-<li>To maintain tidy structure, we would either need to:
+<li>Pro
 <ul>
-<li>We would either need to include a complicated function or some kind of vectorised distribution objects</li>
+<li>Included uncertainty and increased transparency</li>
 </ul></li>
-<li>Spent weeks thinking I was going to have to make this package :(</li>
+<li>Cons
+<ul>
+<li>High uncertainty signal still very visible so I am still getting scammed</li>
+<li>2D palette is harder to read
+<ul>
+<li>Colour is not a simple 3D space</li>
+<li>Using saturation hurts accessibility</li>
+</ul></li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="why-doesnt-this-work" class="slide level2">
+<h2>Why doesn’t this work?</h2>
+<ul>
+<li>Uncertainty is not just another variable…
+<ul>
+<li>It presents an interesting perceptual problem</li>
+</ul></li>
+<li>Usually do not want variables to interfere with each other
+<ul>
+<li>We want to be able to read variables separately</li>
+<li>In uncertainty visualisation, the opposite is true</li>
+</ul></li>
+</ul>
+</section>
+<section id="solution-blend-the-colours-together" class="slide level2">
+<h2>Solution: blend the colours together!</h2>
+
+<img data-src="images/vsup.jpeg" class="r-stretch"></section>
+<section id="does-this-work-kind-of" class="slide level2 smaller">
+<h2>Does this work? Kind of…</h2>
+<div class="columns">
+<div class="column" style="width:20%;">
+<p><img data-src="images/vsupface.jpeg"></p>
+</div><div class="column" style="width:70%;">
+<ul>
+<li>Pros
+<ul>
+<li>Included uncertainty and increased transparency</li>
+<li>No false signals</li>
+</ul></li>
+<li>Cons
+<ul>
+<li>Still have 2D Colour palette</li>
+<li>Standard error at which to blend colours is made up
+<ul>
+<li>Blend at 1? 2? 4? 37?</li>
+<li>Impossible to align with hypothesis testing</li>
+</ul></li>
+</ul></li>
+</ul>
+</div></div>
+</section>
+<section id="solution-simulate-a-sample" class="slide level2">
+<h2>Solution: simulate a sample</h2>
+
+<img data-src="images/choro.jpeg" class="r-stretch"></section>
+<section id="does-this-work-almost" class="slide level2 smaller">
+<h2>Does this work? Almost!</h2>
+<div class="columns">
+<div class="column" style="width:25%;">
+<p><img data-src="images/sampleface.jpeg"></p>
+</div><div class="column" style="width:70%;">
+<ul>
+<li>Pros
+<ul>
+<li>Included uncertainty</li>
+<li>High uncertainty interferes with reading of plot (?)</li>
+<li>1D colour palette</li>
+</ul></li>
+<li>Cons
+<ul>
+<li>Nightmare to make</li>
+</ul></li>
+</ul>
+</div></div>
+</section></section>
+<section>
+<section id="why-are-the-plots-hard" class="title-slide slide level1 center">
+<h1>Why are the plots hard?</h1>
+
+</section>
+<section id="storing-uncertain-data" class="slide level2">
+<h2>Storing uncertain data</h2>
+<ul>
+<li>Main issues stem from difficulties to come from storing uncertain data</li>
+<li>Best to represent uncertain data as a distribution
+<ul>
+<li>That distribution should take up one cell</li>
+<li>Set up a vectorised distribution object?</li>
+</ul></li>
 </ul>
 </section>
 <section id="thank-god-for-distributional" class="slide level2">
 <h2>Thank god for <code>distributional</code></h2>
-<div class="columns">
-<div class="column" style="width:40%;">
+<div class="cell">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a>toy_temp_est <span class="ot">&lt;-</span> toy_temp <span class="sc">|&gt;</span> </span>
+<span id="cb3-2"><a href=""></a>  <span class="fu">group_by</span>(county_name) <span class="sc">|&gt;</span></span>
+<span id="cb3-3"><a href=""></a>  <span class="fu">summarise</span>(<span class="at">temp_dist =</span> <span class="fu">dist_normal</span>(<span class="at">mu =</span> <span class="fu">mean</span>(recorded_temp),</span>
+<span id="cb3-4"><a href=""></a>                                    <span class="at">sigma =</span> <span class="fu">sd</span>(recorded_temp)<span class="sc">/</span><span class="fu">sqrt</span>(<span class="fu">n</span>())))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
 <div class="cell">
 <div class="cell-output-display">
 <table class="caption-top" data-quarto-postprocess="true">
@@ -761,172 +887,30 @@ Harriet Mason
 <td style="text-align: left;">Audubon County</td>
 <td style="text-align: left;">N(28, 0.8)</td>
 </tr>
-<tr class="even">
-<td style="text-align: left;">Benton County</td>
-<td style="text-align: left;">N(29, 2)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Black Hawk County</td>
-<td style="text-align: left;">N(28, 0.13)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Boone County</td>
-<td style="text-align: left;">N(29, 0.82)</td>
-</tr>
-<tr class="odd">
-<td style="text-align: left;">Bremer County</td>
-<td style="text-align: left;">N(29, 0.64)</td>
-</tr>
-<tr class="even">
-<td style="text-align: left;">Buchanan County</td>
-<td style="text-align: left;">N(28, 3.2)</td>
-</tr>
 </tbody>
 </table>
 
 
 </div>
 </div>
-</div><div class="column" style="width:60%;">
-<ul>
-<li><code>distributional</code> lets you store distributions in a <code>tibble</code></li>
-<li>Riding those coat tails all the way to a CRAN submission</li>
-</ul>
-</div></div>
 </section>
-<section id="uncertainty-visualisation-should" class="slide level2">
-<h2>Uncertainty visualisation should…</h2>
-<div class="columns">
-<div class="column" style="width:30%;">
-<p><img data-src="images/madsad.jpeg"></p>
-</div><div class="column" style="width:70%;">
-<ol type="1">
-<li>Reinforce justified signals</li>
-</ol>
+<section id="what-does-it-do" class="slide level2">
+<h2>What does it do?</h2>
 <ul>
-<li>We want my mum to trust the results</li>
+<li><code>distributional</code> lets you store distributions in a <code>tibble</code> as distribution objects</li>
 </ul>
-<ol start="2" type="1">
-<li>Hide signals that are just noise</li>
-</ol>
-<ul>
-<li>I don’t want to see something that isn’t there</li>
-</ul>
-<p><em>Currently doing neither</em></p>
-</div></div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="fu">class</span>(toy_temp_est<span class="sc">$</span>temp_dist)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[1] "distribution" "vctrs_vctr"   "list"        </code></pre>
+</div>
+</div>
 </section>
-<section id="solution-add-an-axis-for-uncertainty" class="slide level2">
-<h2>Solution: add an axis for uncertainty</h2>
-
-<img data-src="images/bivar.jpeg" class="r-stretch"></section>
-<section id="does-this-work-not-really" class="slide level2 smaller">
-<h2>Does this work? Not really</h2>
-<div class="columns">
-<div class="column" style="width:30%;">
-<p><img data-src="images/bivarface.jpeg"></p>
-</div><div class="column" style="width:70%;">
+<section id="what-if-we-dont-use-distributional" class="slide level2 smaller">
+<h2>What if we don’t use distributional?</h2>
 <ul>
-<li>Pro
-<ul>
-<li>Included uncertainty and increased transparency</li>
-</ul></li>
-<li>Cons
-<ul>
-<li>High uncertainty signal still very visible so I am still getting scammed</li>
-<li>2D palette is harder to read
-<ul>
-<li>Colour hues are not a simple 2D space</li>
-<li>Using saturation hurts accessibility</li>
-</ul></li>
-</ul></li>
-</ul>
-</div></div>
-</section>
-<section id="why-doesnt-this-work" class="slide level2">
-<h2>Why doesn’t this work?</h2>
-<ul>
-<li>Uncertainty is not just another variable…
-<ul>
-<li>We do not have a high-dimension visualisation or basic heuristic problem</li>
-</ul></li>
-<li>Two dimensions = No interference
-<ul>
-<li>Normal visualization = GOOD!</li>
-<li>Uncertainty visualization = BAD!</li>
-</ul></li>
-</ul>
-</section>
-<section id="signal-suppression" class="slide level2">
-<h2>Signal suppression</h2>
-
-<img data-src="images/signoise.jpeg" class="quarto-figure quarto-figure-center r-stretch"><ul>
-<li>Visualising uncertainty as noise.</li>
-<li>The error (noise) <em>should</em> interfere with our reading of the temperature (signal)</li>
-<li>But <em>only</em> when the signal has high error</li>
-</ul>
-</section>
-<section id="solution-blend-the-colours-together" class="slide level2">
-<h2>Solution: blend the colours together!</h2>
-
-<img data-src="images/vsup.jpeg" class="r-stretch"></section>
-<section id="does-this-work-kind-of" class="slide level2 smaller">
-<h2>Does this work? Kind of…</h2>
-<div class="columns">
-<div class="column" style="width:20%;">
-<p><img data-src="images/vsupface.jpeg"></p>
-</div><div class="column" style="width:70%;">
-<ul>
-<li>Pros
-<ul>
-<li>Included uncertainty and increased transparency</li>
-<li>Uncertainty hard to ignore</li>
-</ul></li>
-<li>Cons
-<ul>
-<li>Still have 2D Colour palette
-<ul>
-<li>Saturation hurts accessibility</li>
-</ul></li>
-<li>Standard error at which to blend colours is made up
-<ul>
-<li>Impossible to align with hypothesis testing</li>
-</ul></li>
-</ul></li>
-</ul>
-</div></div>
-</section>
-<section id="solution-simulate-a-sample" class="slide level2">
-<h2>Solution: simulate a sample</h2>
-
-<img data-src="images/choro.jpeg" class="r-stretch"></section>
-<section id="does-this-work-almost" class="slide level2 smaller">
-<h2>Does this work? Almost!</h2>
-<div class="columns">
-<div class="column" style="width:25%;">
-<p><img data-src="images/sampleface.jpeg"></p>
-</div><div class="column" style="width:70%;">
-<ul>
-<li>Pros
-<ul>
-<li>Included uncertainty</li>
-<li>High uncertainty map has harder to read trend (?)</li>
-<li>Uncertainty hard to ignore</li>
-<li>1D colour palette
-<ul>
-<li>No more weird colour space</li>
-<li>More accessible</li>
-</ul></li>
-</ul></li>
-<li>Cons
-<ul>
-<li>Nightmare to make</li>
-</ul></li>
-</ul>
-</div><section id="what-did-i-live-through" class="slide level2 smaller">
-<h2>What did I live through…</h2>
-<ul>
-<li>There are several packages with these issues (I am not saying <code>Visumap</code> is bad)</li>
-<li><code>Vizumap</code> is a sample map option
+<li>Existing tidy data structures are not great for uncertain data</li>
+<li>e.g.&nbsp;<code>Vizumap</code>
 <ul>
 <li>Makes Bivariate maps and Pixel (sample) maps</li>
 <li>Package is designed specifically for uncertainty</li>
@@ -944,104 +928,130 @@ Harriet Mason
 <li>Need to make every component separately then combine</li>
 </ul></li>
 </ul>
-</section><section id="ideal-pixelation-map-code" class="slide level2">
+</section>
+<section id="ideal-pixelation-map-code" class="slide level2">
 <h2>Ideal pixelation map code</h2>
 <ul>
 <li>the <code>ggplot</code> recognises the random variable input, and changes the visualisation accordingly</li>
 <li>Again, touch as few <code>ggplot</code> settings as possible</li>
 </ul>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb3-1"><a href=""></a><span class="co"># Psudo Code</span></span>
-<span id="cb3-2"><a href=""></a><span class="fu">ggplot</span>(data) <span class="sc">|&gt;</span></span>
-<span id="cb3-3"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">geometry =</span> geometries,</span>
-<span id="cb3-4"><a href=""></a>              <span class="at">fill =</span> random_variable)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="co"># Psudo Code</span></span>
+<span id="cb6-2"><a href=""></a><span class="fu">ggplot</span>(data) <span class="sc">|&gt;</span></span>
+<span id="cb6-3"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">geometry =</span> geometry,</span>
+<span id="cb6-4"><a href=""></a>              <span class="at">fill =</span> random_variable)) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="vizumap-code" class="slide level2">
+</section>
+<section id="vizumap-code" class="slide level2">
 <h2><code>Vizumap</code> code</h2>
 <div class="cell">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb4-1"><a href=""></a><span class="co"># load the package</span></span>
-<span id="cb4-2"><a href=""></a><span class="fu">library</span>(Vizumap)</span>
-<span id="cb4-3"><a href=""></a><span class="fu">library</span>(sf)</span>
-<span id="cb4-4"><a href=""></a><span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span>
-<span id="cb4-5"><a href=""></a></span>
-<span id="cb4-6"><a href=""></a><span class="co"># Step 1: Format data using bespoke data formatting function</span></span>
-<span id="cb4-7"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">read.uv</span>(<span class="at">data =</span> original_data, </span>
-<span id="cb4-8"><a href=""></a>                <span class="at">estimate =</span> <span class="st">"mean"</span>, </span>
-<span id="cb4-9"><a href=""></a>                <span class="at">error =</span> <span class="st">"standard_error"</span>)</span>
-<span id="cb4-10"><a href=""></a></span>
-<span id="cb4-11"><a href=""></a><span class="co"># Step 2: Pixelate the shapefile</span></span>
-<span id="cb4-12"><a href=""></a>pixelation <span class="ot">&lt;-</span> <span class="fu">pixelate</span>(<span class="at">geoData =</span> geometry_data, </span>
-<span id="cb4-13"><a href=""></a>                       <span class="at">id =</span> <span class="st">"ID"</span>, </span>
-<span id="cb4-14"><a href=""></a>                       <span class="co"># improved - set number of pixels</span></span>
-<span id="cb4-15"><a href=""></a>                       <span class="at">pixelSize =</span> <span class="dv">100</span>)</span>
-<span id="cb4-16"><a href=""></a></span>
-<span id="cb4-17"><a href=""></a></span>
-<span id="cb4-18"><a href=""></a><span class="co"># Step 3: Build pixel map</span></span>
-<span id="cb4-19"><a href=""></a>pixel_map <span class="ot">&lt;-</span> <span class="fu">build_pmap</span>(<span class="at">data =</span> data, </span>
-<span id="cb4-20"><a href=""></a>                         <span class="at">distribution =</span> <span class="st">"normal"</span>, </span>
-<span id="cb4-21"><a href=""></a>                         <span class="at">pixelGeo =</span> pixelation, </span>
-<span id="cb4-22"><a href=""></a>                         <span class="at">id =</span> <span class="st">"ID"</span>, </span>
-<span id="cb4-23"><a href=""></a>                         <span class="co"># You can only use a set palette</span></span>
-<span id="cb4-24"><a href=""></a>                         <span class="at">palette =</span> <span class="st">"Oranges"</span></span>
-<span id="cb4-25"><a href=""></a>                         <span class="at">border =</span> geometry_data)</span>
-<span id="cb4-26"><a href=""></a></span>
-<span id="cb4-27"><a href=""></a><span class="co"># Step 4: Print pixel map</span></span>
-<span id="cb4-28"><a href=""></a><span class="fu">view</span>(pixel_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb7-1"><a href=""></a><span class="co"># load the package</span></span>
+<span id="cb7-2"><a href=""></a><span class="fu">library</span>(Vizumap)</span>
+<span id="cb7-3"><a href=""></a><span class="fu">library</span>(sf)</span>
+<span id="cb7-4"><a href=""></a><span class="fu">sf_use_s2</span>(<span class="cn">FALSE</span>)</span>
+<span id="cb7-5"><a href=""></a></span>
+<span id="cb7-6"><a href=""></a><span class="co"># Step 1: Format data using bespoke data formatting function</span></span>
+<span id="cb7-7"><a href=""></a>data <span class="ot">&lt;-</span> <span class="fu">read.uv</span>(<span class="at">data =</span> original_data, </span>
+<span id="cb7-8"><a href=""></a>                <span class="at">estimate =</span> <span class="st">"mean"</span>, </span>
+<span id="cb7-9"><a href=""></a>                <span class="at">error =</span> <span class="st">"standard_error"</span>)</span>
+<span id="cb7-10"><a href=""></a></span>
+<span id="cb7-11"><a href=""></a><span class="co"># Step 2: Pixelate the shapefile</span></span>
+<span id="cb7-12"><a href=""></a>pixelation <span class="ot">&lt;-</span> <span class="fu">pixelate</span>(<span class="at">geoData =</span> geometry_data, </span>
+<span id="cb7-13"><a href=""></a>                       <span class="at">id =</span> <span class="st">"ID"</span>, </span>
+<span id="cb7-14"><a href=""></a>                       <span class="co"># improved - set number of pixels</span></span>
+<span id="cb7-15"><a href=""></a>                       <span class="at">pixelSize =</span> <span class="dv">100</span>)</span>
+<span id="cb7-16"><a href=""></a></span>
+<span id="cb7-17"><a href=""></a></span>
+<span id="cb7-18"><a href=""></a><span class="co"># Step 3: Build pixel map</span></span>
+<span id="cb7-19"><a href=""></a>pixel_map <span class="ot">&lt;-</span> <span class="fu">build_pmap</span>(<span class="at">data =</span> data, </span>
+<span id="cb7-20"><a href=""></a>                         <span class="at">distribution =</span> <span class="st">"normal"</span>, </span>
+<span id="cb7-21"><a href=""></a>                         <span class="at">pixelGeo =</span> pixelation, </span>
+<span id="cb7-22"><a href=""></a>                         <span class="at">id =</span> <span class="st">"ID"</span>, </span>
+<span id="cb7-23"><a href=""></a>                         <span class="co"># You can only use a set palette</span></span>
+<span id="cb7-24"><a href=""></a>                         <span class="at">palette =</span> <span class="st">"Oranges"</span></span>
+<span id="cb7-25"><a href=""></a>                         <span class="at">border =</span> geometry_data)</span>
+<span id="cb7-26"><a href=""></a></span>
+<span id="cb7-27"><a href=""></a><span class="co"># Step 4: Print pixel map</span></span>
+<span id="cb7-28"><a href=""></a><span class="fu">view</span>(pixel_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</section><section id="why-is-integrating-uncertainty-hard" class="slide level2">
-<h2>Why is integrating uncertainty hard?</h2>
+</section>
+<section id="does-distributional-means-we-are-done" class="slide level2">
+<h2>Does <code>distributional</code> means we are done?</h2>
 <ul>
-<li><code>ggplot2</code> was built on the grammar of graphics</li>
-<li>Built to take in data, not distributions.</li>
+<li>Nope</li>
+<li>While the tidy format is useful (and necessary) we now need to extend <code>ggplot2</code> to implement it</li>
+<li>why?</li>
 </ul>
-</section><section id="the-grammar-of-graphics" class="slide level2">
-<h2>The grammar of graphics</h2>
-<p><img data-src="images/gog1.jpg"> ## Data as an input</p>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/gog3.jpg" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/gog4.jpg" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
-<div class="quarto-figure quarto-figure-center">
-<figure>
-<p><img data-src="images/gog5.jpg" class="quarto-figure quarto-figure-center"></p>
-</figure>
-</div>
-</section><section id="ggdibbler-example" class="slide level2">
+</section>
+<section id="ggplot2-was-built-on-the-grammar-of-graphics" class="slide level2">
+<h2><code>ggplot2</code> was built on the grammar of graphics</h2>
+
+<img data-src="images/gog1.jpg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="it-is-designed-to-take-in-data" class="slide level2">
+<h2>It is designed to take in data</h2>
+
+<img data-src="images/gog3.jpg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="not-theoretical-distributions" class="slide level2">
+<h2>Not theoretical distributions</h2>
+
+<img data-src="images/gog4.jpg" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="this-is-what-ggdibbler-is-for" class="slide level2">
+<h2>This is what <code>ggdibbler</code> is for</h2>
+
+<img data-src="images/gog5.jpg" class="quarto-figure quarto-figure-center r-stretch"></section></section>
+<section>
+<section id="ggdibbler" class="title-slide slide level1 center">
+<h1><code>ggdibbler</code></h1>
+
+</section>
+<section id="ggdibbler-example" class="slide level2">
 <h2><code>ggdibbler</code> Example</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb5-1"><a href=""></a><span class="fu">library</span>(ggdibbler)</span>
-<span id="cb5-2"><a href=""></a>toy_temp_dist <span class="sc">|&gt;</span> </span>
-<span id="cb5-3"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
-<span id="cb5-4"><a href=""></a>  <span class="fu">geom_sf_sample</span>(<span class="fu">aes</span>(<span class="at">geometry =</span> county_geometry,</span>
-<span id="cb5-5"><a href=""></a>                     <span class="at">fill=</span>temp_dist))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb8-1"><a href=""></a><span class="fu">library</span>(ggdibbler)</span>
+<span id="cb8-2"><a href=""></a>toy_temp_dist <span class="sc">|&gt;</span> </span>
+<span id="cb8-3"><a href=""></a>  <span class="fu">ggplot</span>() <span class="sc">+</span> </span>
+<span id="cb8-4"><a href=""></a>  <span class="fu">geom_sf_sample</span>(<span class="fu">aes</span>(<span class="at">geometry =</span> county_geometry,</span>
+<span id="cb8-5"><a href=""></a>                     <span class="at">fill=</span>temp_dist))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="presentation_files/figure-revealjs/unnamed-chunk-12-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section><section id="wow-look-at-that-software-go" class="slide level2">
+<img data-src="presentation_files/figure-revealjs/unnamed-chunk-14-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="wow-look-at-that-software-go" class="slide level2">
 <h2>Wow, look at that software go</h2>
 <div class="cell" data-layout-align="center">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb6-1"><a href=""></a><span class="fu">ggplot</span>(toy_temp_dist) <span class="sc">+</span></span>
-<span id="cb6-2"><a href=""></a>  <span class="fu">geom_sf_sample</span>(<span class="fu">aes</span>(<span class="at">geometry=</span>county_geometry, <span class="at">fill=</span>temp_dist),  <span class="at">linewidth=</span><span class="dv">0</span>, <span class="at">n=</span><span class="dv">7</span>) <span class="sc">+</span></span>
-<span id="cb6-3"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">geometry =</span> county_geometry), <span class="at">fill=</span><span class="cn">NA</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>, <span class="at">colour=</span><span class="st">"white"</span>) <span class="sc">+</span></span>
-<span id="cb6-4"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
-<span id="cb6-5"><a href=""></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"YlOrRd"</span>, <span class="at">direction=</span> <span class="dv">1</span>) <span class="sc">+</span></span>
-<span id="cb6-6"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">"Longitude"</span>) <span class="sc">+</span></span>
-<span id="cb6-7"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"Latitude"</span>) <span class="sc">+</span></span>
-<span id="cb6-8"><a href=""></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Temperature"</span>) <span class="sc">+</span></span>
-<span id="cb6-9"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"A super cool and customised plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb9-1"><a href=""></a><span class="fu">ggplot</span>(toy_temp_dist) <span class="sc">+</span></span>
+<span id="cb9-2"><a href=""></a>  <span class="fu">geom_sf_sample</span>(<span class="fu">aes</span>(<span class="at">geometry=</span>county_geometry, <span class="at">fill=</span>temp_dist),  <span class="at">linewidth=</span><span class="dv">0</span>, <span class="at">n=</span><span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb9-3"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">geometry =</span> county_geometry), <span class="at">fill=</span><span class="cn">NA</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>, <span class="at">colour=</span><span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb9-4"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb9-5"><a href=""></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"YlOrRd"</span>, <span class="at">direction=</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb9-6"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">"Longitude"</span>) <span class="sc">+</span></span>
+<span id="cb9-7"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"Latitude"</span>) <span class="sc">+</span></span>
+<span id="cb9-8"><a href=""></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Temperature"</span>) <span class="sc">+</span></span>
+<span id="cb9-9"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"A super cool and customised plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 
 </div>
-<img data-src="presentation_files/figure-revealjs/unnamed-chunk-13-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section><section id="ggdibbler-future-plans" class="slide level2 smaller">
+<img data-src="presentation_files/figure-revealjs/unnamed-chunk-15-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="wow-look-at-that-software-go-x2" class="slide level2">
+<h2>Wow, look at that software go x2</h2>
+<div class="cell" data-layout-align="center">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource r number-lines code-with-copy"><code class="sourceCode r"><span id="cb10-1"><a href=""></a><span class="fu">ggplot</span>(toy_temp_dist) <span class="sc">+</span></span>
+<span id="cb10-2"><a href=""></a>  <span class="fu">geom_sf_sample</span>(<span class="fu">aes</span>(<span class="at">geometry=</span>county_geometry, <span class="at">fill=</span>temp_dist),  <span class="at">linewidth=</span><span class="dv">0</span>, <span class="at">n=</span><span class="dv">7</span>) <span class="sc">+</span></span>
+<span id="cb10-3"><a href=""></a>  <span class="fu">geom_sf</span>(<span class="fu">aes</span>(<span class="at">geometry =</span> county_geometry), <span class="at">fill=</span><span class="cn">NA</span>, <span class="at">linewidth=</span><span class="fl">0.5</span>, <span class="at">colour=</span><span class="st">"white"</span>) <span class="sc">+</span></span>
+<span id="cb10-4"><a href=""></a>  <span class="fu">theme_minimal</span>() <span class="sc">+</span></span>
+<span id="cb10-5"><a href=""></a>  <span class="fu">scale_fill_distiller</span>(<span class="at">palette =</span> <span class="st">"YlOrRd"</span>, <span class="at">direction=</span> <span class="dv">1</span>) <span class="sc">+</span></span>
+<span id="cb10-6"><a href=""></a>  <span class="fu">xlab</span>(<span class="st">"Longitude"</span>) <span class="sc">+</span></span>
+<span id="cb10-7"><a href=""></a>  <span class="fu">ylab</span>(<span class="st">"Latitude"</span>) <span class="sc">+</span></span>
+<span id="cb10-8"><a href=""></a>  <span class="fu">labs</span>(<span class="at">fill =</span> <span class="st">"Temperature"</span>) <span class="sc">+</span></span>
+<span id="cb10-9"><a href=""></a>  <span class="fu">ggtitle</span>(<span class="st">"A super cool and customised plot"</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+
+</div>
+<img data-src="presentation_files/figure-revealjs/unnamed-chunk-16-1.png" class="quarto-figure quarto-figure-center r-stretch" width="960"></section>
+<section id="ggdibbler-future-plans" class="slide level2 smaller">
 <h2><code>ggdibbler</code> Future Plans</h2>
 <ul>
 <li>Implement <code>ggdibbler</code> variations of other <code>geom_*()</code> functions
 <ul>
 <li>e.g.&nbsp;<code>geom_point()</code>, etc.</li>
+<li>currently only has one function (I just came back from leave)</li>
 </ul></li>
 <li>Might implement VSUP into the package
 <ul>
@@ -1049,7 +1059,17 @@ Harriet Mason
 </ul></li>
 <li>Integrate <code>dibble</code> object so that <code>geom_sf()</code> automatically does <code>geom_sf_sample()</code> if you pass a distribution in</li>
 </ul>
-</section><section id="end" class="title-slide slide level1 center">
+</section>
+<section id="if-you-care-about-software" class="slide level2">
+<h2>If you care about software</h2>
+
+<img data-src="images/ggsite.png" class="quarto-figure quarto-figure-center r-stretch"></section>
+<section id="if-you-care-about-theory" class="slide level2">
+<h2>If you care about theory</h2>
+
+<img data-src="images/papersite.png" class="quarto-figure quarto-figure-center r-stretch"></section></section>
+<section>
+<section id="end" class="title-slide slide level1 center">
 <h1>End</h1>
 
 </section>
@@ -1059,9 +1079,6 @@ Harriet Mason
 <div class="footer footer-default">
 
 </div>
-</div>
-</section>
-
 </div>
 </section></section>
     </div>
