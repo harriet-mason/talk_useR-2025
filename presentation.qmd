@@ -431,6 +431,12 @@ toy_temp_est |>
 class(toy_temp_est$temp_dist)
 ```
 
+- Can also mix different distributions together (don't all need to be the same family)
+- Can use a sample rather than a theoretical distribution
+  - e.g. bootstrapping
+
+
+
 ## What if we don't use distributional? {.smaller}
 - Existing tidy data structures are not great for uncertain data
 - e.g. `Vizumap` 
