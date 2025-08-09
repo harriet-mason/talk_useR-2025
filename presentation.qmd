@@ -33,7 +33,7 @@ options(digits=3,
 # ![](images/){fig-align="center"}
 ```
 
-# What Even is an Uncertainty Visualisation?
+# What is uncertainty visualisation?
 
 ## 
 ![](images/box1.jpg){fig-align="center"}
@@ -297,10 +297,10 @@ grid.arrange(p1, p2, nrow = 1)
 ```
 
 
-# What does a good uncertainty visualisation look like?
+# How do we make an honest plot?
 
 ## Solution: add an axis for uncertainty
-![](images/bivar.jpeg)
+![](images/bivar.jpeg){fig-align="center"}
 
 ## Does this work? Not really {.smaller}
 :::: {.columns}
@@ -322,7 +322,7 @@ grid.arrange(p1, p2, nrow = 1)
 :::
 ::::
 
-## Why doesn't this work? 
+## Aside: why doesn't this work? 
 - Uncertainty is not just another variable…
   - It presents an interesting perceptual problem
 - Usually do not want variables to interfere with each other
@@ -331,7 +331,7 @@ grid.arrange(p1, p2, nrow = 1)
 
 
 ## Solution: blend the colours together!
-![](images/vsup.jpeg)
+![](images/vsup.jpeg){fig-align="center"}
 
 ## Does this work? Kind of... {.smaller}
 :::: {.columns}
@@ -357,7 +357,7 @@ grid.arrange(p1, p2, nrow = 1)
 
 ## Solution: simulate a sample
 
-![](images/choro.jpeg)
+![](images/choro.jpeg){fig-align="center"}
 
 ## Does this work? Almost! {.smaller}
 :::: {.columns}
@@ -378,13 +378,29 @@ grid.arrange(p1, p2, nrow = 1)
 :::
 ::::
 
-# Why are the plots hard?
+# Why are the plots hard to make?
 
 ## Storing uncertain data
+
+::: {.columns}
+
+::: {.column width="50%"}
+
+![](images/dibble.jpeg){fig-align="center"}
+
+:::
+
+::: {.column width="50%"}
 - Main issues stem from difficulties to come from storing uncertain data
 - Best to represent uncertain data as a distribution
   - That distribution should take up one cell
   - Set up a vectorised distribution object?
+
+:::
+
+::::
+
+
 
 ## Thank god for `distributional`
 
@@ -425,6 +441,9 @@ class(toy_temp_est$temp_dist)
   - *Very* computationally expensive
     - A simple map can take over a minute to run
   - Need to make every component separately then combine
+
+## Code to make pixel map {fig-align="center"}
+![](images/pixel.jpeg){fig-align="center"}
 
 ## Ideal pixelation map code
 - the `ggplot` recognises the random variable input, and changes the visualisation accordingly
@@ -475,10 +494,9 @@ view(pixel_map)
 ```
 
 
-## Does `distributional` mean we are done?
-- Nope
-- While the tidy format is useful (and necessary) we now need to extend `ggplot2` to implement it
-- Why?
+## Can we visualise distribution objects?
+- Yay have tidy format for distributions
+- Now need to extend `ggplot2` to implement it
 
 ## `ggplot2` was built on the grammar of graphics
 
@@ -514,6 +532,7 @@ view(pixel_map)
   - Wanted it to be next to `ggdist`alphabetically in package list
   - dibble = distribution tibble was an accident
 - Applies the previously discussed theoretical principles 
+
 :::
 
 ::::

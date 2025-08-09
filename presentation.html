@@ -408,8 +408,8 @@ Harriet Mason
 
 </section>
 <section>
-<section id="what-even-is-an-uncertainty-visualisation" class="title-slide slide level1 center">
-<h1>What Even is an Uncertainty Visualisation?</h1>
+<section id="what-is-uncertainty-visualisation" class="title-slide slide level1 center">
+<h1>What is uncertainty visualisation?</h1>
 
 </section>
 <section id="section" class="slide level2">
@@ -736,14 +736,14 @@ Harriet Mason
 
 <img data-src="presentation_files/figure-revealjs/unnamed-chunk-8-1.png" width="960" class="r-stretch"></section></section>
 <section>
-<section id="what-does-a-good-uncertainty-visualisation-look-like" class="title-slide slide level1 center">
-<h1>What does a good uncertainty visualisation look like?</h1>
+<section id="how-do-we-make-an-honest-plot" class="title-slide slide level1 center">
+<h1>How do we make an honest plot?</h1>
 
 </section>
 <section id="solution-add-an-axis-for-uncertainty" class="slide level2">
 <h2>Solution: add an axis for uncertainty</h2>
 
-<img data-src="images/bivar.jpeg" class="r-stretch"></section>
+<img data-src="images/bivar.jpeg" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="does-this-work-not-really" class="slide level2 smaller">
 <h2>Does this work? Not really</h2>
 <div class="columns">
@@ -767,8 +767,8 @@ Harriet Mason
 </ul>
 </div></div>
 </section>
-<section id="why-doesnt-this-work" class="slide level2">
-<h2>Why doesn’t this work?</h2>
+<section id="aside-why-doesnt-this-work" class="slide level2">
+<h2>Aside: why doesn’t this work?</h2>
 <ul>
 <li>Uncertainty is not just another variable…
 <ul>
@@ -784,7 +784,7 @@ Harriet Mason
 <section id="solution-blend-the-colours-together" class="slide level2">
 <h2>Solution: blend the colours together!</h2>
 
-<img data-src="images/vsup.jpeg" class="r-stretch"></section>
+<img data-src="images/vsup.jpeg" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="does-this-work-kind-of" class="slide level2 smaller">
 <h2>Does this work? Kind of…</h2>
 <div class="columns">
@@ -812,7 +812,7 @@ Harriet Mason
 <section id="solution-simulate-a-sample" class="slide level2">
 <h2>Solution: simulate a sample</h2>
 
-<img data-src="images/choro.jpeg" class="r-stretch"></section>
+<img data-src="images/choro.jpeg" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="does-this-work-almost" class="slide level2 smaller">
 <h2>Does this work? Almost!</h2>
 <div class="columns">
@@ -834,12 +834,20 @@ Harriet Mason
 </div></div>
 </section></section>
 <section>
-<section id="why-are-the-plots-hard" class="title-slide slide level1 center">
-<h1>Why are the plots hard?</h1>
+<section id="why-are-the-plots-hard-to-make" class="title-slide slide level1 center">
+<h1>Why are the plots hard to make?</h1>
 
 </section>
 <section id="storing-uncertain-data" class="slide level2">
 <h2>Storing uncertain data</h2>
+<div class="columns">
+<div class="column" style="width:50%;">
+<div class="quarto-figure quarto-figure-center">
+<figure>
+<p><img data-src="images/dibble.jpeg" class="quarto-figure quarto-figure-center"></p>
+</figure>
+</div>
+</div><div class="column" style="width:50%;">
 <ul>
 <li>Main issues stem from difficulties to come from storing uncertain data</li>
 <li>Best to represent uncertain data as a distribution
@@ -848,6 +856,7 @@ Harriet Mason
 <li>Set up a vectorised distribution object?</li>
 </ul></li>
 </ul>
+</div></div>
 </section>
 <section id="thank-god-for-distributional" class="slide level2">
 <h2>Thank god for <code>distributional</code></h2>
@@ -929,6 +938,10 @@ Harriet Mason
 </ul></li>
 </ul>
 </section>
+<section id="code-to-make-pixel-map" class="slide level2" data-fig-align="center">
+<h2>Code to make pixel map</h2>
+
+<img data-src="images/pixel.jpeg" class="quarto-figure quarto-figure-center r-stretch"></section>
 <section id="ideal-pixelation-map-code" class="slide level2">
 <h2>Ideal pixelation map code</h2>
 <ul>
@@ -975,12 +988,11 @@ Harriet Mason
 <span id="cb7-28"><a href=""></a><span class="fu">view</span>(pixel_map)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="does-distributional-mean-we-are-done" class="slide level2">
-<h2>Does <code>distributional</code> mean we are done?</h2>
+<section id="can-we-visualise-distribution-objects" class="slide level2">
+<h2>Can we visualise distribution objects?</h2>
 <ul>
-<li>Nope</li>
-<li>While the tidy format is useful (and necessary) we now need to extend <code>ggplot2</code> to implement it</li>
-<li>Why?</li>
+<li>Yay have tidy format for distributions</li>
+<li>Now need to extend <code>ggplot2</code> to implement it</li>
 </ul>
 </section>
 <section id="ggplot2-was-built-on-the-grammar-of-graphics" class="slide level2">
